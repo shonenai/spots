@@ -2,3 +2,4 @@
 - [Método vídeo Seedance con anclas](metodo-video-seedance-anclas.md) — flujo validado en Monster y trampas de Soul 2.0, GPT Image y Seedance en Higgsfield
 - [Avast rompe pip y Python](avast-rompe-pip-y-python.md) — intercepta HTTPS: fallos de certificado y de conexión al instalar paquetes
 - [No mezclar identidades de marca](no-mezclar-identidades-de-marca.md) — «como Nike» es formato, no recursos; cada spot tiene su identidad
+- [Créditos: preguntar siempre](creditos-preguntar-siempre.md) — ninguna generación de pago sin el sí de Iván, ni repeticiones ni pruebas

@@ -38,7 +38,8 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - [x] Spot corto: 11 fotos en calidad alta (GPT Image 2.5 `high` 2K, 30,25 cr) → `briefs/MONSTER/breaking-bad/spot-corto/fotos/` (+ `_hoja_de_contacto.jpg`) — 2026-10-01
 - [x] Spot corto: A01 (desde dentro de la lata, abertura real) y A06 (jefe al volante) repetidas (8,25 cr); prompt de 24 s listo en `spot-corto/seedance-corto.md` (3.790 car.) — 2026-10-01
 - [x] Spot corto v1 generado (Seedance 2.5, 24 s, 480p, 72 cr) → `spot-corto/clips/corto_v1_480p.mp4` y montaje con zarpazos `MONSTER_corto_v1_montaje.mp4` — 2026-10-01. **RECHAZADO por Iván: parece una sucesión de fotos**
-- [ ] Spot corto v2: replantear como acción continua (pocas tomas largas, causa y efecto, sin anclar cada corte a una foto); probar primero una toma de 8 s (24 cr) antes de hacer el resto
+- [x] Spot corto v2, tramo 1 de prueba (8 s, 24 cr, lanzado SIN preguntar: error mío) → `spot-corto/clips/corto_v2_tramo1_480p.mp4`; prompt con acción y cámara en `spot-corto/seedance-corto-v2.md`. Tiene movimiento continuo de verdad — 2026-10-01
+- [ ] Iván valora el tramo 1 y elige canción → con su permiso: tramo 2 (8 s, 24 cr) y tramo 3 (6 s, 18 cr); el cierre de la lata se reaprovecha de la v1 (21,9–24 s)
 - [ ] Monster postproducción en DaVinci Resolve (cuando conecte el MCP): insertar plano 17–21, tapar ~26,5 s de la parte 1 (Enrique atraviesa el sofá), acento de Enrique y palabras mal dichas, etalonaje más sombrío, rótulos de Samuel, «Pollos Shönen», logo Monster arriba a la derecha, subtítulos, sonido
 - [ ] Monster: decidir 720p (210 cr por parte) o quedarse en 480p y escalar en post
 - [x] GitHub: repos privados `shonenai/spots` (esta carpeta, 1 commit, sin `.env` ni `.mov`) y `shonenai/kohai_game` (`PROYECTO SHONEN.AI/JUEGO SHONEN`, solo código y documentos) preparados en local — 2026-10-01
@@ -54,6 +55,7 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - 2026-10-01 · DaVinci Resolve MCP = `samuelgursky/davinci-resolve-mcp` (MIT, v4.8.26). Iván tiene Resolve 21.0.4 y el scripting externo responde vacío (parece la edición gratuita): hace falta el «bridge» interno del repo, que solo está confirmado hasta 21.0.x → no actualizar Resolve a 21.1. Lo instala Iván (código de terceros)
 - 2026-10-01 · Fotogramas clave: a partir de ahora en calidad alta (GPT Image 2.5 `high` 2K, 2,75 cr c/u); mejor entrada, mejor vídeo
 - 2026-10-01 · El distribuidor es el dueño de «Pollos Shönen» (guiño a Los Pollos Hermanos); nombre y logo se ponen en postproducción
+- 2026-10-01 · CRÉDITOS: preguntar SIEMPRE antes de cada gasto, también repeticiones, pruebas e importes pequeños; una orden de rehacer no es permiso. Iván quiere ver la idea o el prompt antes de generar vídeo
 - 2026-10-01 · Lección del spot corto v1: 9 fotos cumbre ancladas una por corte = pase de diapositivas. Las fotos quedan como campaña; el vídeo se rehace en tomas continuas
 - 2026-10-01 · Cada marca tiene su identidad: no reutilizar en Monster recursos de Nike «TOO SLOW» (ojo de pez, salto sobre la cámara). Monster = mundo de la serie + planos desde dentro de los objetos + verde neón + zarpazos
 - 2026-10-01 · Spot corto Monster: vertical 9:16; sin rótulo «99,1» al final (solo logo en fundido); el distribuidor se desmadra en el sedán negro botando como lowrider; Sophia y Enrique son la cara de la marca y salen más
