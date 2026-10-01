@@ -54,7 +54,8 @@ Hojas de Sophia (calle, con sombrero) y Enrique (calle, mono), Samuel, distribui
 | Foto | Job de Higgsfield |
 |---|---|
 | A01a_dentro-lata-ojo (v2, un ojo por la abertura) | d5760f74-dfec-44a9-bdd5-1cd343788dac |
-| A01b_dentro-lata-cara (v2, cara y anilla con la M; la elegida para el vídeo) | 2ca3fb5a-fbee-4b97-8578-4cfea5156afb |
+| A01b_dentro-lata-cara (v2, cara y anilla con la M) | 2ca3fb5a-fbee-4b97-8578-4cfea5156afb |
+| **A01_dentro-lata-final** (imagen de A01b + abertura de A01a; la del vídeo) | ca5f5bc9-c938-433c-938c-89c7c6af792a |
 | A02_enrique-flota | 25a50afc-81c4-48d5-96b7-60b4d7d4dadb |
 | A03_choque-manos | c11db16c-f48c-4c05-a7d3-050f41e3a610 |
 | A04_motorhome-salto | ceaf36e0-b774-466d-9372-9a144a70766d |

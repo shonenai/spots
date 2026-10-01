@@ -19,5 +19,6 @@ Flujo validado por Iván en el spot Monster x «Breaking Bad» (30-09 y 01-10-20
 - Seedance 2.5: 3 cr/s a 480p (30 s = 90 cr), 7 cr/s a 720p. Higgsfield sugiere un preset al lanzar; rechazarlo con `declined_preset_id`.
 - Las subidas a Higgsfield (`media_upload`) necesitan la cabecera `If-None-Match: *` en el PUT; el audio se sube como MP3.
 - Prompt con el tope de 4.000 caracteres de la skill Nexus; con 8 cortes en 30 s cada corte queda en 200-300 caracteres.
+- LÍMITE DEL MÉTODO (spot corto Monster, 2026-10-01): anclar CADA corte a una foto ya terminada da «una sucesión de fotos», no un vídeo. Falló con 9 anclas en 24 s, todas en el momento cumbre de la acción y sin relación entre planos; Iván lo rechazó. Las anclas funcionan cuando hay pocas (4-5 en 30 s), marcan el antes o el después y entre ellas hay acción o diálogo que las une. Para piezas de acción: menos planos, más largos, en toma continua, con causa y efecto de un plano al siguiente, y la foto de arranque en el instante ANTERIOR a la acción.
 - Iván quiere fotogramas en calidad alta: [[fotogramas-clave-calidad-alta]].
 - Formato del spot Monster: horizontal 16:9. Voces de Sophia y Enrique = las que sacó Seedance en la parte 1.

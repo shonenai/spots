@@ -1,10 +1,10 @@
 # MONSTER · spot corto «El primer sorbo» · Seedance 2.5
-*2026-10-01 · 24 s · 9:16 · 480p · omni_reference · audio nativo ON (solo efectos) · 72 cr*
+*2026-10-01 · 24 s · 9:16 · 480p · omni_reference · audio nativo ON (solo efectos) · 72 cr · lanzado: job 6aca36d8-0d64-4395-8e50-30d4606b6de7*
 
 Zarpazos verdes de transición, fundido del logo y música: en el montaje local.
 
 ## Referencias (en este orden)
-- @Image1 — `fotos/A01b_dentro-lata-cara.png` (job 2ca3fb5a)
+- @Image1 — `fotos/A01_dentro-lata-final.png` (job ca5f5bc9): imagen de A01b con la abertura de A01a, pedido por Iván
 - @Image2 — `fotos/A02_enrique-flota.png` (job 25a50afc)
 - @Image3 — `fotos/A03_choque-manos.png` (job c11db16c)
 - @Image4 — `fotos/A04_motorhome-salto.png` (job ceaf36e0)
