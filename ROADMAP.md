@@ -35,7 +35,8 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - [ ] Iván revisa la parte 3 y el spot entero (diálogos de Samuel y del distribuidor sin comprobar: no hay transcripción)
 - [ ] DaVinci Resolve MCP APARCADO (2026-10-01): repo en `PROYECTOS/davinci-resolve-mcp`, bridge y entrada en `~/.claude.json` hechos; falta instalar `mcp<2` en su venv (Avast corta PyPI). Iván no quiere gastar más tiempo en esto por ahora; el montaje se hace en local con ffmpeg como en Nike
 - [x] Monster spot corto «El primer sorbo» (9:16, 15 s): guion v3 con 9 planos y 11 fotos (plano 1 = cámara dentro de la lata; plano 3 = choque de manos con onda verde; plano 8 = mortal de Enrique desde el motorhome) → `briefs/MONSTER/breaking-bad/spot-corto/guion.md` — 2026-10-01
-- [ ] Iván da el OK al guion corto → 11 fotos en calidad alta (~30 cr) → Seedance 15 s 480p (45 cr) → montaje local (zarpazos, logo en fundido)
+- [x] Spot corto: 11 fotos en calidad alta (GPT Image 2.5 `high` 2K, 30,25 cr) → `briefs/MONSTER/breaking-bad/spot-corto/fotos/` (+ `_hoja_de_contacto.jpg`) — 2026-10-01
+- [ ] Iván revisa las fotos → Seedance 15 s 480p 9:16 (45 cr) → montaje local (zarpazos, logo en fundido)
 - [ ] Monster postproducción en DaVinci Resolve (cuando conecte el MCP): insertar plano 17–21, tapar ~26,5 s de la parte 1 (Enrique atraviesa el sofá), acento de Enrique y palabras mal dichas, etalonaje más sombrío, rótulos de Samuel, «Pollos Shönen», logo Monster arriba a la derecha, subtítulos, sonido
 - [ ] Monster: decidir 720p (210 cr por parte) o quedarse en 480p y escalar en post
 - [x] GitHub: repos privados `shonenai/spots` (esta carpeta, 1 commit, sin `.env` ni `.mov`) y `shonenai/kohai_game` (`PROYECTO SHONEN.AI/JUEGO SHONEN`, solo código y documentos) preparados en local — 2026-10-01

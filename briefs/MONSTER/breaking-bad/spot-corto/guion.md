@@ -49,3 +49,20 @@ Sirven de anclas para el vídeo y de fotos de campaña.
 
 ## Referencias que ya existen
 Hojas de Sophia (calle, con sombrero) y Enrique (calle, mono), Samuel, distribuidor, gemelos, motorhome, despacho, desierto con el sedán negro, lata oficial. Lista con identificadores en `../referencias-imagen.md`.
+
+## Fotos generadas (2026-10-01, GPT Image 2.5 `high` 2K, 1520×2688) · `fotos/`
+| Foto | Job de Higgsfield |
+|---|---|
+| A01_sophia-dentro-lata | b7dba51b-5501-4ef6-91d4-08ce74427179 |
+| A02_enrique-flota | 25a50afc-81c4-48d5-96b7-60b4d7d4dadb |
+| A03_choque-manos | c11db16c-f48c-4c05-a7d3-050f41e3a610 |
+| A04_motorhome-salto | ceaf36e0-b774-466d-9372-9a144a70766d |
+| A05_samuel-tele | 04da7b64-6f57-4531-8324-4951846231e6 |
+| A06_distribuidor-lowrider | 805f3c53-6fe2-47ee-b689-6fccc9f50e2c |
+| A07_sophia-pasa | 3ecb6038-9eda-490a-901b-5e5698c2f35f |
+| A08_mortal-enrique | 970546f0-09c5-4771-a792-8d7aefadb4bc |
+| A09_lata-cierre | f61c424b-a918-4694-ad51-5e302f2438fe |
+| A10_retrato-sophia | d4858934-534e-455b-9d02-ff7b86372c8f |
+| A11_retrato-enrique | e5e7019e-3c6b-4b52-9eae-1c9b3c5fbea5 |
+
+Nota: en A06 el distribuidor va en el asiento de atrás con la lata por la ventanilla y los gemelos delante (se pidió al volante).
