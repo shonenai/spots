@@ -34,7 +34,7 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - [x] Monster voces: Sophia y Enrique = las de Seedance en la parte 1; muestras en `voces/sophia/` (9,2 s) y `voces/enrique/` (5,5 s) — 2026-09-30
 - [ ] Iván revisa la parte 3 y el spot entero (diálogos de Samuel y del distribuidor sin comprobar: no hay transcripción)
 - [ ] DaVinci Resolve MCP APARCADO (2026-10-01): repo en `PROYECTOS/davinci-resolve-mcp`, bridge y entrada en `~/.claude.json` hechos; falta instalar `mcp<2` en su venv (Avast corta PyPI). Iván no quiere gastar más tiempo en esto por ahora; el montaje se hace en local con ffmpeg como en Nike
-- [x] Monster spot corto «El primer sorbo» (9:16, 15 s): guion v2 con 9 planos y 11 fotos (plano 3 = salto y choque de manos sobre la cámara; plano 8 = mortal de Enrique desde el motorhome) → `briefs/MONSTER/breaking-bad/spot-corto/guion.md` — 2026-10-01
+- [x] Monster spot corto «El primer sorbo» (9:16, 15 s): guion v3 con 9 planos y 11 fotos (plano 1 = cámara dentro de la lata; plano 3 = choque de manos con onda verde; plano 8 = mortal de Enrique desde el motorhome) → `briefs/MONSTER/breaking-bad/spot-corto/guion.md` — 2026-10-01
 - [ ] Iván da el OK al guion corto → 11 fotos en calidad alta (~30 cr) → Seedance 15 s 480p (45 cr) → montaje local (zarpazos, logo en fundido)
 - [ ] Monster postproducción en DaVinci Resolve (cuando conecte el MCP): insertar plano 17–21, tapar ~26,5 s de la parte 1 (Enrique atraviesa el sofá), acento de Enrique y palabras mal dichas, etalonaje más sombrío, rótulos de Samuel, «Pollos Shönen», logo Monster arriba a la derecha, subtítulos, sonido
 - [ ] Monster: decidir 720p (210 cr por parte) o quedarse en 480p y escalar en post
@@ -51,6 +51,7 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - 2026-10-01 · DaVinci Resolve MCP = `samuelgursky/davinci-resolve-mcp` (MIT, v4.8.26). Iván tiene Resolve 21.0.4 y el scripting externo responde vacío (parece la edición gratuita): hace falta el «bridge» interno del repo, que solo está confirmado hasta 21.0.x → no actualizar Resolve a 21.1. Lo instala Iván (código de terceros)
 - 2026-10-01 · Fotogramas clave: a partir de ahora en calidad alta (GPT Image 2.5 `high` 2K, 2,75 cr c/u); mejor entrada, mejor vídeo
 - 2026-10-01 · El distribuidor es el dueño de «Pollos Shönen» (guiño a Los Pollos Hermanos); nombre y logo se ponen en postproducción
+- 2026-10-01 · Cada marca tiene su identidad: no reutilizar en Monster recursos de Nike «TOO SLOW» (ojo de pez, salto sobre la cámara). Monster = mundo de la serie + planos desde dentro de los objetos + verde neón + zarpazos
 - 2026-10-01 · Spot corto Monster: vertical 9:16; sin rótulo «99,1» al final (solo logo en fundido); el distribuidor se desmadra en el sedán negro botando como lowrider; Sophia y Enrique son la cara de la marca y salen más
 - 2026-10-01 · GitHub: cuenta `shonenai`; commits con el correo noreply de la cuenta; memoria de Claude copiada a `docs/memoria/` para trabajar en la nube
 - 2026-09-30 · Voz de Enrique = la de Seedance en la parte 1 (no la de Iván), a Iván le hace gracia
