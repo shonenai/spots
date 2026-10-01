@@ -1,0 +1,21 @@
+{
+  "model": "soul_2",
+  "aspect_ratio": "3:4",
+  "character": "El Charro de Hierro",
+  "subject": {
+    "identity": "Mediterranean-Latino man, around 35-40, rugged and intense, strong square jaw, straight prominent nose, full lips",
+    "eyes": "pale blue-green eyes, heavy dark lower lashes, piercing direct stare into the lens",
+    "eyebrows": "thick, dark, straight, slightly furrowed",
+    "hair": "black wavy hair, wet and slicked back, a few loose strands falling on the forehead",
+    "facial_hair": "short dense stubble with a darker goatee, uneven growth",
+    "marks": "small fresh cut scar on his right cheekbone, slight redness around it",
+    "expression": "cold, calm, dangerous; mouth closed, no smile"
+  },
+  "skin": "tanned olive skin covered in sweat, glistening only on forehead, nose and cheekbones; visible enlarged pores, fine vellus hair, uneven tone with redness on cheeks, natural texture under the eyes",
+  "wardrobe": "black leather charro jacket with tonal black floral embroidery, collar open, bare chest visible at the neckline",
+  "framing": "tight head-and-shoulders close-up, face centered, eyes on the upper third",
+  "lighting": "harsh direct on-camera flash, hard shadow on the wall behind him, purple light leak bleeding in from the right edge",
+  "background": "plain off-white wall",
+  "look": "late-90s 35mm film scan, heavy grain, slight color noise, dreamy soft focus at the edges, muted blue shadows, warm skin, raw and unretouched",
+  "negative": "no waxy skin, no plastic skin, no smooth airbrushed skin, no beauty filter, no CGI, no 3d render, no smile, no jewelry, no hat, no text, no watermark"
+}

@@ -1,0 +1,12 @@
+# Claves: nunca a git
+.env
+.env.*
+
+# Vídeos maestros pesados (se quedan en local)
+*.mov
+
+# Cachés y basura del sistema
+.claude/council-cache/
+Thumbs.db
+desktop.ini
+__pycache__/

@@ -1,0 +1,3 @@
+- [Fotogramas clave en calidad alta](fotogramas-clave-calidad-alta.md) — Iván prefiere `high` 2K en las fotos de referencia aunque cuesten más
+- [Método vídeo Seedance con anclas](metodo-video-seedance-anclas.md) — flujo validado en Monster y trampas de Soul 2.0, GPT Image y Seedance en Higgsfield
+- [Avast rompe pip y Python](avast-rompe-pip-y-python.md) — intercepta HTTPS: fallos de certificado y de conexión al instalar paquetes

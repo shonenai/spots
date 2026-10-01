@@ -1,0 +1,26 @@
+{
+  "model": "soul_2",
+  "aspect_ratio": "16:9",
+  "character": "El Charro de Hierro",
+  "subject": {
+    "identity": "Mediterranean-Latino man, around 35-40, rugged and intense, strong square jaw, straight prominent nose, full lips. Keep his face exactly as in the face reference",
+    "eyes": "pale blue-green eyes, heavy dark lower lashes",
+    "eyebrows": "thick, dark, straight",
+    "hair": "black wavy hair, slicked back, a few loose strands on the forehead",
+    "facial_hair": "short dense stubble with a darker goatee, uneven growth",
+    "marks": "small cut scar on his right cheekbone",
+    "body": "broad shoulders, strong athletic build, around 1.85 m, tanned olive skin",
+    "expression": "calm, serious, mouth closed"
+  },
+  "skin": "real skin texture: visible pores, fine vellus hair, uneven tone with slight redness on cheeks, natural shine only on the T-zone",
+  "wardrobe": "plain fitted heather-grey crew-neck t-shirt, plain fitted black bike shorts, barefoot. No logos, no jewelry, no accessories",
+  "layout": {
+    "type": "3-panel character sheet on a flat neutral grey studio background, evenly lit, no environment, no props, no cast shadows on the backdrop",
+    "panel_1": "front-facing close-up of the head and shoulders",
+    "panel_2": "full body, front view, WITHOUT HEAD: the frame starts at the base of the neck, no head, no face, no chin visible in this panel; neutral standing pose, arms relaxed at the sides, feet visible",
+    "panel_3": "full body, back view, same pose and scale as panel 2",
+    "consistency": "consistent proportions and costume across all three panels"
+  },
+  "look": "photographic, soft even studio light, neutral color, sharp focus, subtle 35mm film grain",
+  "negative": "no waxy skin, no plastic skin, no smooth airbrushed skin, no beauty filter, no CGI, no 3d render, no logos, no text, no watermark, no extra people, no props, no shadows on the backdrop, no decapitation, no neck stump"
+}

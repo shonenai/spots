@@ -1,0 +1,326 @@
+<title>La Rival · prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una columna de fichas por paso; barra fija con filtros y progreso; naranja = planos de ella y la moto, blanco = planos de ellos */
+:root{
+  color-scheme:dark;
+  --bg:#121016; --bg2:#1B1820; --bg3:#26222D; --line:#37313F;
+  --fg:#F4EFE6; --muted:#ADA5B6; --faint:#766E80;
+  --naranja:#F26A1B; --blanco:#E9E4DA; --burdeos:#A3243B; --asfalto:#6C6A70; --oro:#D9B04A;
+  --accent:var(--oro);
+  --f-dis:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  --f-body:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--fg);font:15px/1.6 var(--f-body);padding-inline:clamp(16px,4vw,44px);padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+header{padding-block:40px 24px;border-bottom:1px solid var(--line);display:grid;gap:14px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font:800 clamp(38px,7vw,68px)/.95 var(--f-dis);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.stripe{display:flex;height:10px;border-radius:2px;overflow:hidden;max-width:420px}
+.stripe i{flex:1}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+.lede b{color:var(--fg)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 93%,transparent);backdrop-filter:blur(6px);
+  padding-block:12px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 13px/1 var(--f-body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer}
+.chip:hover{color:var(--fg);border-color:var(--faint)}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip:focus-visible,.btn:focus-visible,summary:focus-visible,.done input:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.progress{font:500 13px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px}
+.meter{width:120px;height:6px;border-radius:3px;background:var(--bg3);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--oro);width:0;transition:width .3s}
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding-block:24px;color:var(--muted);font-size:14px}
+.how b{display:block;color:var(--fg);font:700 16px/1.3 var(--f-dis);margin-bottom:4px}
+section.step{padding-block:30px 4px}
+.step-h{display:grid;gap:4px;margin-bottom:14px}
+.step-k{font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--oro)}
+.step-t{font:800 clamp(24px,3.4vw,32px)/1.1 var(--f-dis);margin:0;text-wrap:balance}
+.step-d{color:var(--muted);margin:0;max-width:66ch}
+.cards{display:grid;gap:12px}
+.card{--c:var(--oro);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px 16px 22px;display:grid;gap:6px;position:relative;min-width:0}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:10px 0 0 10px;background:var(--c)}
+.card.is-done{opacity:.55}
+.top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.id{font:500 13px/1 var(--f-mono);color:var(--c);font-variant-numeric:tabular-nums}
+.name{font:700 20px/1.2 var(--f-dis);margin:0}
+.tag{font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.tag.tool{color:var(--fg);border-color:var(--faint)}
+.what{margin:0;max-width:72ch}
+.att{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:3px;font:13px/1.45 var(--f-mono);color:var(--muted);min-width:0}
+.att li{overflow-wrap:anywhere}
+.att li::before{content:"↳ ";color:var(--faint)}
+.check{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.check b{color:var(--fg);font-weight:600}
+.act{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.btn{font:600 13px/1 var(--f-body);background:var(--fg);color:var(--bg);border:0;border-radius:6px;padding:10px 14px;cursor:pointer}
+.btn:hover{background:#FFFFFF}
+.btn.ok{background:var(--oro);color:var(--bg)}
+.done{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+.done input{accent-color:var(--oro);width:16px;height:16px}
+details{margin-top:4px;min-width:0}
+summary{cursor:pointer;color:var(--muted);font:500 13px/1 var(--f-body);list-style:none;display:inline-flex;gap:6px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--f-mono)}
+details[open] summary::before{content:"−"}
+pre{margin:10px 0 0;padding:14px 16px;background:#0B0A0E;border:1px solid var(--line);border-radius:8px;font:12.5px/1.6 var(--f-mono);color:#DDD6E6;
+  white-space:pre-wrap;word-break:break-word;max-height:340px;overflow:auto}
+.blocks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+.blocks h3{font:700 17px/1.2 var(--f-dis);margin:0 0 4px}
+.blocks p{color:var(--muted);margin:0;font-size:14px}
+footer{margin-top:36px;color:var(--faint);font-size:13px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:720px){.how,.blocks{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Nike · spec · episodio 01 · la motorista · 9:16 · 23 s</div>
+  <h1>La Rival</h1>
+  <div class="stripe" aria-hidden="true"><i style="background:var(--naranja);flex:4"></i><i style="background:var(--asfalto);flex:2"></i><i style="background:var(--blanco)"></i><i style="background:var(--burdeos)"></i></div>
+  <p class="lede"><b>Llega arreglada. Se va ganando.</b> Los chavales juegan, llega una moto naranja, creen que es un tío… y es ella, en tacones. Todos los prompts en orden de producción: vestuario, escenario y moto, fotogramas y clips de Seedance con las voces. Cada botón copia el prompt completo, con el look, el realismo y lo que hay que evitar ya dentro. Marca «hecho» cuando lo tengas; se guarda en este navegador.</p>
+</header>
+
+<div class="bar">
+  <div class="chips" role="group" aria-label="Filtrar por paso">
+    <button class="chip" data-f="all" aria-pressed="true">Todo</button>
+    <button class="chip" data-f="1" aria-pressed="false">1 · Vestuario</button>
+    <button class="chip" data-f="2" aria-pressed="false">2 · Escenario y moto</button>
+    <button class="chip" data-f="3" aria-pressed="false">3 · Fotogramas</button>
+    <button class="chip" data-f="4" aria-pressed="false">4 · Clips</button>
+    <button class="chip" data-f="todo" aria-pressed="false">Pendientes</button>
+  </div>
+  <div class="progress"><span id="pc">0 / 0</span><span class="meter" aria-hidden="true"><i id="pm"></i></span></div>
+</div>
+
+<div class="how">
+  <div><b>Copia</b>Un clic y tienes el prompt entero. No hay que juntar bloques.</div>
+  <div><b>Adjunta</b>Cada ficha dice qué imágenes subir. Las rutas son desde <code>briefs/NIKE/</code>.</div>
+  <div><b>Revisa y marca</b>Caras, zapatillas sin intercambiar, 5 dedos y nada de texto. Si falla el paso 1, no sigas.</div>
+</div>
+
+<main id="list"></main>
+
+<div class="blocks">
+  <div><h3>Look de imagen</h3><p>Va dentro de los prompts de los pasos 2 y 3.</p><pre id="b-look"></pre></div>
+  <div><h3>Realismo de piel y ropa</h3><p>Va dentro de todas las imágenes con personas.</p><pre id="b-real"></pre></div>
+  <div><h3>Evitar en imagen</h3><p>Final de todos los prompts de imagen.</p><pre id="b-neg"></pre></div>
+  <div><h3>Evitar en vídeo</h3><p>Final de todos los clips de Seedance.</p><pre id="b-vneg"></pre></div>
+</div>
+<footer>Shönen AI · pieza spec, no afiliada a Nike · contenido hecho con IA. En el montaje: cápsula SHÖNEN AI todo el vídeo, cristales de colores en el mate, cierre en negro con el logo, el corte de katana y «Spec · IA».</footer>
+</div>
+<div class="sr" aria-live="polite" id="live"></div>
+
+<script>
+const LOOK = "Cinematic sports campaign photography, vertical 9:16, late-afternoon golden sun, hard light with crisp shadows, outdoor street basketball court between New York brick apartment blocks, surrounded by a tall rusty chain-link fence, the court floor painted in faded, chipped colour blocks (red, emerald green, caramel, lilac, sky blue) exactly like the court reference; the orange of her outfit and the motorcycle is the most saturated colour in frame, motion blur realism, lens flare streaks, backlight bloom, cinematic colour grading.";
+const REAL = "Visible pores, fine skin texture, uneven skin tone, slight oil sheen, sweat microbeads, peach fuzz, fine hair strands, realistic specular highlights. Soft fabric folds, uneven wrinkles, textile grain, fine fibers visible, cloth weight realism.";
+const NEG  = "No text, no captions, no watermarks, no extra logos, no watches, no headphones, no other sportswear brands, no plastic skin, no CGI, no extra fingers.";
+const VLOOK = "Vertical 9:16. Late-afternoon golden sun, hard light, street basketball court between New York brick apartment blocks, rusty chain-link fence, faded multicolour painted floor exactly like the court reference, the orange of her outfit and the motorcycle as the most saturated colour, motion blur realism, real skin texture with pores and sweat, realistic fabric movement.";
+const VNEG = "Avoid: text on screen, subtitles, extra logos, face changes, extra fingers, morphing bodies, CGI look, more than one camera movement.";
+const HIM = "the young man from the first outfit sheet (curly hair with a fade, thin moustache; black sleeveless training top, white shorts, white crew socks, black/silver/red low-top basketball sneakers)";
+const HER = "the young woman from the moto outfit sheet (long wavy black hair, glossy burgundy lips, burgundy nails; cropped orange, black and white moto jacket, matching pleated orange mini skirt, orange and black pointed high heels)";
+const CREW = "his two friends from the face references (a white guy with short dark hair, blue eyes and stubble, and a guy with short curls and a goatee), both in plain black and white basketball clothes with no visible logos";
+const VOICE = "Dialogue in Spanish with a Puerto Rican accent, natural street tone, lips in sync.";
+
+const A = {
+  fichaA:"Tu ficha gris de él (rizos, bigote)",
+  fichaB:"Tu ficha gris de ella (ondulado, labios burdeos)",
+  outA:"outfits/el-entreno.webp",
+  outM:"outfits/ella-moto.webp",
+  luka:"01-del-movil-al-cartel/LUKA/jpg/LUKA_1.jpg",
+  hojaA:"Hoja 1A (él con el outfit)",
+  hojaB:"Hoja 1B (ella con el conjunto de moto)",
+  esc:"Escenario E: generado/E-cancha-ivan.webp (la cancha de Iván)",
+  moto:"Moto M (la moto naranja)",
+  ex1:"personajes/candidatos/candidato-08.png",
+  ex2:"personajes/candidatos/candidato-02.webp"
+};
+
+const STEPS = [
+ {n:"1", t:"Vestuario", d:"Las hojas de personaje con la ropa del episodio. Desde aquí sustituyen a las fichas grises en todos los prompts."},
+ {n:"2", t:"Escenario y moto", d:"La cancha vacía y la moto sola. Son las referencias fijas de fondo y de vehículo."},
+ {n:"3", t:"Fotogramas de inicio", d:"Todo en 9:16. Cada uno es el primer fotograma de un clip; K6a y K6b son el primero y el último del casco."},
+ {n:"4", t:"Clips de Seedance", d:"Un clip por plano, un solo movimiento de cámara. Los clips con diálogo piden la voz a Seedance; si una voz falla, la rehacemos en local y la ponemos en el montaje."}
+];
+
+const ITEMS = [
+ {id:"1A", s:"1", c:"blanco", name:"Él con el outfit", fmt:"16:9", tool:"Nano Banana Pro",
+  what:"✅ Hecha: generado/1A-el-entreno.webp (lleva auriculares y reloj: se quitan en los fotogramas).",
+  att:[A.fichaA,A.outA,A.luka],
+  check:"<b>Revisa:</b> ropa idéntica a la referencia, zapatillas Luka, sin reloj ni auriculares.",
+  p:`3-panel character sheet on a flat neutral grey studio background, evenly lit. The young man from the face reference wearing exactly the outfit from the outfit reference: black sleeveless training top, white shorts, white crew socks, and the black/silver/red low-top basketball sneakers from the sneaker reference. Panel 1: head and shoulders close-up. Panel 2: full body front, neutral pose. Panel 3: full body back, same pose and scale. Keep his face exactly as in the reference. Consistent proportions and costume across all panels.\n\n${REAL}\n\n${NEG}`},
+ {id:"1B", s:"1", c:"naranja", name:"Ella con el conjunto de moto", fmt:"16:9", tool:"Nano Banana Pro",
+  what:"✅ Hecha: generado/1B-ella-moto.webp (la de Iván).",
+  att:[A.fichaB,A.outM],
+  check:"<b>Revisa:</b> chaqueta corta y falda plisada como la referencia, tacones naranja y negro, sin bolso ni gafas, uñas y labios burdeos.",
+  p:`3-panel character sheet on a flat neutral grey studio background, evenly lit. The young woman from the face reference wearing exactly the outfit from the outfit reference: cropped orange, black and white moto jacket zipped up, matching pleated orange, black and white mini skirt, orange and black pointed high heels. No bag, no sunglasses. Long wavy black hair perfectly styled, glossy burgundy lips, burgundy manicured nails. Panel 1: head and shoulders close-up. Panel 2: full body front, confident pose, one hand on hip. Panel 3: full body back, same scale. Keep her face exactly as in the reference. Consistent proportions and costume across all panels.\n\n${REAL}\n\n${NEG}`},
+ {id:"E", s:"2", c:"naranja", name:"La cancha vacía", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"✅ Hecha: se usa la de Iván (generado/E-cancha-ivan.webp). Este prompt queda solo por si hay que repetirla.",
+  att:["Nada: solo texto"],
+  check:"<b>Revisa:</b> asfalto gris con bloques naranjas, un aro con tablero de cristal y red de cadena, la puerta de la valla visible, sin personas.",
+  p:`Empty outdoor street basketball court inside a tall chain-link cage, grey asphalt with white court lines and a few bold orange painted blocks, one glass backboard hoop with a chain net, an open gate in the fence, city apartment blocks behind, late-afternoon golden sun, long crisp shadows. Paint chipping, surface grain noise, metal oxidation on the fence. No people.\n\n${LOOK}\n\n${NEG}`},
+ {id:"M", s:"2", c:"naranja", name:"La moto", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"✅ Hecha: generado/M-moto.png. Este prompt queda solo por si hay que repetirla.",
+  att:[A.outM+" (para el color)"],
+  check:"<b>Revisa:</b> los colores casan con la chaqueta, sin logos de ninguna marca de motos.",
+  p:`A sleek sport motorcycle painted in orange, black and white colour blocks matching the moto jacket from the reference, parked on grey asphalt, three-quarter front view, late-afternoon golden sun. No brand logos, no text, no badges on the bike.\n\n${LOOK}\n\n${NEG}`},
+ {id:"K1", s:"3", c:"blanco", name:"De risas en la cancha", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 1. Los chavales juegan y se ríen; él tira un triple.",
+  att:[A.hojaA,A.ex1,A.ex2,A.esc],
+  p:`Low angle from under the hoop: ${HIM} releases a three-point shot while ${CREW} laugh and push each other playfully. Keep all faces exactly as in the references.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K2", s:"3", c:"blanco", name:"Él machaca", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 2. Él cuelga del aro tras un mate.",
+  att:[A.hojaA,A.esc],
+  p:`Side view: ${HIM} hangs from the rim after a dunk, the chain net swinging, his friends cheering blurred in the background. Keep his face and outfit exactly as in the outfit sheet.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K3", s:"3", c:"naranja", name:"El codazo", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 3. Un amigo le da un codazo y señala con la cara hacia la puerta; al fondo, la moto.",
+  att:[A.hojaA,A.ex1,A.esc,A.moto],
+  p:`Medium shot: the white friend with short dark hair, blue eyes and stubble from the face reference nudges ${HIM} with his elbow and points with his chin toward the gate, both still smiling from their game; in the far background, through the chain-link fence, the orange motorcycle from the reference arrives. Keep all faces exactly as in the references.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K4", s:"3", c:"naranja", name:"La moto frena", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 4. La motorista, con casco integral, frena en la puerta de la valla.",
+  att:[A.hojaB,A.moto,A.esc],
+  p:`Ground-level side view: a rider on the orange motorcycle from the reference brakes hard at the open gate of the caged court, rear tyre leaving a light skid mark. The rider wears a full-face orange and black helmet with a dark visor, so the face and gender are completely hidden, and the cropped orange moto jacket and pleated skirt from the outfit sheet, orange and black high heels on the foot pegs.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K5", s:"3", c:"naranja", name:"El tacón", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 5. La moto inclinada sobre la pata de cabra; un tacón toca el asfalto.",
+  att:[A.hojaB,A.moto],
+  p:`Low close-up at asphalt level: the orange motorcycle from the reference leans on its kickstand while one orange and black pointed high heel from the outfit sheet steps down onto the grey asphalt, dust in the golden light.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K6a", s:"3", c:"naranja", name:"Casco puesto", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 6, primer fotograma. Sentada en la moto, casco integral puesto, manos en el casco.",
+  att:[A.hojaB,A.moto],
+  p:`Medium close-up: the rider sits on the orange motorcycle from the reference, both hands on the full-face orange and black helmet with a dark visor, about to take it off; cropped orange moto jacket from the outfit sheet, burgundy manicured nails visible. Face completely hidden.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K6b", s:"3", c:"naranja", name:"Sin casco", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 6, último fotograma. Mismo encuadre: casco en la mano, melena cayendo.",
+  att:[A.hojaB,A.moto,"K6a (para el mismo encuadre)"],
+  p:`Same framing, light and position as the previous frame: ${HER} sits on the orange motorcycle holding the helmet in one hand, long wavy hair falling over her shoulders, calm confident stare at the camera. Keep her face exactly as in the outfit sheet.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K7", s:"3", c:"blanco", name:"La frase del chulo", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 7. Él se acerca con media sonrisa; ella de espaldas en primer término.",
+  att:[A.hojaA,A.hojaB,A.esc],
+  p:`Over-the-shoulder shot from behind ${HER}: ${HIM} walks up to her with a cocky half smile, ball under his arm, about to speak, his friends grinning behind him. Keep all faces and outfits exactly as in the outfit sheets.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K8", s:"3", c:"naranja", name:"«Cállate y juega»", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 8. Primer plano de ella, a punto de hablar.",
+  att:[A.hojaB,A.esc],
+  p:`Close-up of ${HER}, unimpressed, one eyebrow slightly raised, glossy burgundy lips about to speak, blurred chain-link fence and golden backlight behind her. Keep her face exactly as in the outfit sheet.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K9", s:"3", c:"naranja", name:"El robo", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 9. Le quita el balón y se lo pasa entre las piernas, en tacones.",
+  att:[A.hojaA,A.hojaB,A.esc],
+  p:`Low fisheye angle at asphalt level: ${HER} has just stolen the ball and dribbles it between her legs in her high heels, pleated skirt swinging, while ${HIM} reaches for it too late. Keep both faces and outfits exactly as in the outfit sheets.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K10", s:"3", c:"naranja", name:"El mate en tacones", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 11. Machaca a dos manos. El tablero sigue entero: los cristales van en el montaje.",
+  att:[A.hojaB,A.esc],
+  p:`Extreme low angle from under the hoop: ${HER} mid-air dunking with both hands, hair and skirt flying, one high heel visible, the glass backboard still intact. Keep her face and outfit exactly as in the outfit sheet.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"K11", s:"3", c:"blanco", name:"¡Wooow!", fmt:"9:16", tool:"Nano Banana Pro",
+  what:"Plano 12. Los chicos, con las manos en la cabeza.",
+  att:[A.hojaA,A.ex1,A.ex2,A.esc],
+  p:`Group shot: ${HIM} and ${CREW} stand frozen with hands on their heads and jaws dropped, looking up at the hoop, golden backlight. Keep all faces exactly as in the references.\n\n${LOOK}\n\n${REAL}\n\n${NEG}`},
+ {id:"C1", s:"4", c:"blanco", name:"El triple", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K1. Contrapicado bajo el aro.", att:["@image1 = K1"],
+  p:`Image-to-video, 9:16, 3 seconds. Start exactly from @image1. Static low angle under the hoop with a slight tilt up: the three-pointer swishes through the chain net, the friends laugh and shove each other. Sound: chain net rattle, laughter, a shout. Faces exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C2", s:"4", c:"blanco", name:"Su mate", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K2. Lateral con cámara lenta que acelera.", att:["@image1 = K2"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Lateral tracking, slow motion ramping to real speed: he drops from the rim and lands, friends cheer. Sound: rim clang, cheers. Face and sneakers exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C3", s:"4", c:"naranja", name:"El codazo", fmt:"9:16 · 4 s", tool:"Seedance",
+  what:"Parte de K3. Ruge el motor, codazo y «Oye… ¿y ese quién es?».", att:["@image1 = K3"],
+  p:`Image-to-video, 9:16, 4 seconds. Start from @image1. Handheld medium shot, slight push in. A motorbike engine roars off-screen; they stop laughing, the friend elbows him and nods toward the gate, saying: "Oye… ¿y ese quién es?". ${VOICE} Sound: engine roar growing. Faces exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C4", s:"4", c:"naranja", name:"La moto frena", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K4. Travelling lateral a ras de suelo.", att:["@image1 = K4"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Lateral tracking at ground level: the orange motorcycle rolls through the gate and brakes hard, the rear tyre skids lightly. The rider's face stays hidden behind the dark visor. Sound: engine, brake screech.\n${VLOOK}\n${VNEG}`},
+ {id:"C5", s:"4", c:"naranja", name:"El tacón", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K5. Panorámica que sube desde el tacón.", att:["@image1 = K5"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Tilt up from the asphalt: the kickstand drops, the bike leans, the high heel touches the ground with a sharp click and the camera rises to her orange skirt and jacket. Face stays out of frame. Sound: kickstand, heel click.\n${VLOOK}\n${VNEG}`},
+ {id:"C6", s:"4", c:"naranja", name:"Fuera el casco", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Primer fotograma K6a, último K6b. Acercamiento lento.", att:["Primer fotograma = K6a","Último fotograma = K6b"],
+  p:`First-and-last-frame video, 9:16, 3 seconds. Slow dolly in: she lifts the helmet off in one smooth motion, her long wavy hair falls over her shoulders, she looks straight at the camera. Her face exactly as in the last frame. Sound: everything goes quiet, a soft wind.\n${VLOOK}\n${VNEG}`},
+ {id:"C7", s:"4", c:"blanco", name:"La frase del chulo", fmt:"9:16 · 4 s", tool:"Seedance",
+  what:"Parte de K7. Plano por encima del hombro de ella.", att:["@image1 = K7"],
+  p:`Image-to-video, 9:16, 4 seconds. Start from @image1. Static over-the-shoulder shot: he stops in front of her, spins the ball once and says with a cocky smile: "¿Qué hace una señorita como tú en un sitio como este?". His friends chuckle behind him. ${VOICE} Faces exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C8", s:"4", c:"naranja", name:"«Cállate y juega»", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K8. Primer plano, acercamiento mínimo.", att:["@image1 = K8"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Very slow dolly in on her face: she answers flatly, barely moving her burgundy lips: "Cállate y juega." Then a tiny smirk. ${VOICE} Her voice is calm, low and confident. Face exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C9", s:"4", c:"naranja", name:"El robo", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K9. Ojo de pez a ras de suelo.", att:["@image1 = K9"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Fisheye tracking forward at ground level: she snatches the ball, dribbles it between her legs in her high heels and spins away from him. Sound: ball bounces, heel clicks, a surprised "¡Eh!". Faces and outfits exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C10", s:"4", c:"naranja", name:"Tiempo congelado", fmt:"9:16 · 4 s", tool:"Seedance",
+  what:"Sin fotograma. Vuelta de 360° con todo quieto.", att:["@image1 = "+A.hojaB,"@image2 = "+A.esc],
+  p:`Text-to-video with references, 9:16, 4 seconds. 360-degree orbit around her, frozen time, bullet time: the young woman from @image1 hangs in the air near the hoop of the court from @image2, ball raised above her head, hair, skirt and sweat droplets frozen, one high heel pointed down; only the camera moves. Outfit exactly as in @image1. Sound: music cuts to silence.\n${VLOOK}\n${VNEG}`},
+ {id:"C11", s:"4", c:"naranja", name:"El mate", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K10. Contrapicado y zoom de golpe. Los cristales, en el montaje.", att:["@image1 = K10"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Extreme low angle, tilt up, crash zoom in on the rim: she slams the ball through the hoop with both hands and hangs for a moment, the whole backboard shakes violently. Sound: huge slam. Face and outfit exactly as in @image1.\n${VLOOK}\n${VNEG}`},
+ {id:"C12", s:"4", c:"blanco", name:"¡Wooow!", fmt:"9:16 · 3 s", tool:"Seedance",
+  what:"Parte de K11. Plano de grupo en cámara lenta.", att:["@image1 = K11"],
+  p:`Image-to-video, 9:16, 3 seconds. Start from @image1. Slow dolly out, slow motion: the guys stare up with hands on their heads and shout "¡Wooow!", one drops to his knees laughing. ${VOICE} Faces exactly as in @image1.\n${VLOOK}\n${VNEG}`}
+];
+
+const KEY = "la-rival-moto-hechos";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { done = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e) {} };
+let filter = "all";
+const esc = s => s.replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+function render(){
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  STEPS.forEach(st => {
+    const items = ITEMS.filter(it => it.s === st.n && (filter === "all" || filter === st.n || (filter === "todo" && !done[it.id])));
+    if (!items.length) return;
+    const sec = document.createElement("section");
+    sec.className = "step";
+    sec.innerHTML = `<div class="step-h"><div class="step-k">Paso ${st.n}</div><h2 class="step-t">${st.t}</h2><p class="step-d">${st.d}</p></div><div class="cards"></div>`;
+    const cards = sec.querySelector(".cards");
+    items.forEach(it => {
+      const el = document.createElement("article");
+      el.className = "card" + (done[it.id] ? " is-done" : "");
+      el.style.setProperty("--c", `var(--${it.c})`);
+      el.innerHTML = `
+        <div class="top"><span class="id">${it.id}</span><h3 class="name">${esc(it.name)}</h3><span class="tag">${it.fmt}</span><span class="tag tool">${it.tool}</span></div>
+        <p class="what">${esc(it.what)}</p>
+        <ul class="att">${it.att.map(a => `<li>${esc(a)}</li>`).join("")}</ul>
+        ${it.check ? `<p class="check">${it.check}</p>` : ""}
+        <div class="act">
+          <button class="btn" type="button" data-copy="${it.id}">Copiar prompt</button>
+          <label class="done"><input type="checkbox" id="done-${it.id}" data-done="${it.id}" ${done[it.id] ? "checked" : ""}> Hecho</label>
+        </div>
+        <details><summary>Ver prompt</summary><pre>${esc(it.p)}</pre></details>`;
+      cards.appendChild(el);
+    });
+    list.appendChild(sec);
+  });
+  const n = ITEMS.filter(it => done[it.id]).length;
+  document.getElementById("pc").textContent = `${n} / ${ITEMS.length} hechos`;
+  document.getElementById("pm").style.width = (100 * n / ITEMS.length) + "%";
+}
+
+document.addEventListener("click", ev => {
+  const chip = ev.target.closest(".chip");
+  if (chip) {
+    filter = chip.dataset.f;
+    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === chip ? "true" : "false"));
+    render();
+    return;
+  }
+  const b = ev.target.closest("[data-copy]");
+  if (b) {
+    const it = ITEMS.find(x => x.id === b.dataset.copy);
+    const ok = () => { b.textContent = "Copiado"; b.classList.add("ok"); document.getElementById("live").textContent = `Prompt ${it.id} copiado`; setTimeout(() => { b.textContent = "Copiar prompt"; b.classList.remove("ok"); }, 1600); };
+    const fallback = () => { const d = b.closest(".card").querySelector("details"); d.open = true; const r = document.createRange(); r.selectNodeContents(d.querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selecciónalo y copia"; };
+    try { navigator.clipboard.writeText(it.p).then(ok, fallback); } catch(e) { fallback(); }
+  }
+});
+document.addEventListener("change", ev => {
+  const c = ev.target.closest("[data-done]");
+  if (!c) return;
+  if (c.checked) done[c.dataset.done] = true; else delete done[c.dataset.done];
+  save(); render();
+});
+
+document.getElementById("b-look").textContent = LOOK;
+document.getElementById("b-real").textContent = REAL;
+document.getElementById("b-neg").textContent = NEG;
+document.getElementById("b-vneg").textContent = VNEG;
+render();
+</script>

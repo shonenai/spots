@@ -1,0 +1,35 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Pop,Impact,110,&H00FFFFFF,&H00FFFFFF,&H001C1216,&H661C1216,0,0,0,0,100,100,2,0,1,10,6,5,40,40,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:01.25,0:00:01.50,Pop,,0,0,0,,{n5\pos(540,1606)s100scx125scy125	(0,110,scx100scy100)}{\c&HFFB27F&scx112scy112}¿TÚ{\c&HFFFFFF&scx100scy100} ESTÁS LISTO, PAPI?
+Dialogue: 0,0:00:01.50,0:00:01.80,Pop,,0,0,0,,{n5\pos(540,1606)s100}¿TÚ {\c&HFFB27F&scx112scy112}ESTÁS{\c&HFFFFFF&scx100scy100} LISTO, PAPI?
+Dialogue: 0,0:00:01.80,0:00:02.05,Pop,,0,0,0,,{n5\pos(540,1606)s100}¿TÚ ESTÁS {\c&HFFB27F&scx112scy112}LISTO,{\c&HFFFFFF&scx100scy100} PAPI?
+Dialogue: 0,0:00:02.05,0:00:02.60,Pop,,0,0,0,,{n5\pos(540,1606)s100}¿TÚ ESTÁS LISTO, {\c&HFFB27F&scx112scy112}PAPI?{\c&HFFFFFF&scx100scy100}
+Dialogue: 0,0:00:12.60,0:00:12.95,Pop,,0,0,0,,{n5\pos(540,1606)s118scx125scy125	(0,110,scx100scy100)}TOO SLOW... PAPITO.
+Dialogue: 0,0:00:12.95,0:00:13.30,Pop,,0,0,0,,{n5\pos(540,1606)s118}{\c&HE6D83F&scx112scy112}TOO{\c&HFFFFFF&scx100scy100} SLOW... PAPITO.
+Dialogue: 0,0:00:13.30,0:00:13.60,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO {\c&HE6D83F&scx112scy112}SLOW...{\c&HFFFFFF&scx100scy100} PAPITO.
+Dialogue: 0,0:00:13.60,0:00:14.10,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO SLOW... {\c&HE6D83F&scx112scy112}PAPITO.{\c&HFFFFFF&scx100scy100}
+Dialogue: 0,0:00:26.85,0:00:26.90,Pop,,0,0,0,,{n5\pos(540,1606)s118scx125scy125	(0,110,scx100scy100)}TOO SLOW... PAPITO.
+Dialogue: 0,0:00:26.90,0:00:27.20,Pop,,0,0,0,,{n5\pos(540,1606)s118}{\c&H41A4D9&scx112scy112}TOO{\c&HFFFFFF&scx100scy100} SLOW... PAPITO.
+Dialogue: 0,0:00:27.20,0:00:27.60,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO {\c&H41A4D9&scx112scy112}SLOW...{\c&HFFFFFF&scx100scy100} PAPITO.
+Dialogue: 0,0:00:27.60,0:00:28.20,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO SLOW... {\c&H41A4D9&scx112scy112}PAPITO.{\c&HFFFFFF&scx100scy100}
+Dialogue: 0,0:00:29.20,0:00:29.85,Pop,,0,0,0,,{n5\pos(540,1606)s104scx125scy125	(0,110,scx100scy100)}{\c&H136AFF&scx112scy112}¡VALE, VALE!{\c&HFFFFFF&scx100scy100} ¡REVANCHA!
+Dialogue: 0,0:00:29.85,0:00:30.54,Pop,,0,0,0,,{n5\pos(540,1606)s104}¡VALE, VALE! {\c&H136AFF&scx112scy112}¡REVANCHA!{\c&HFFFFFF&scx100scy100}
+Dialogue: 0,0:00:36.90,0:00:36.95,Pop,,0,0,0,,{n5\pos(540,1606)s118scx125scy125	(0,110,scx100scy100)}TOO SLOW... MAMI.
+Dialogue: 0,0:00:36.95,0:00:37.20,Pop,,0,0,0,,{n5\pos(540,1606)s118}{\c&HD4A4B8&scx112scy112}TOO{\c&HFFFFFF&scx100scy100} SLOW... MAMI.
+Dialogue: 0,0:00:37.20,0:00:37.55,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO {\c&HD4A4B8&scx112scy112}SLOW...{\c&HFFFFFF&scx100scy100} MAMI.
+Dialogue: 0,0:00:37.55,0:00:38.20,Pop,,0,0,0,,{n5\pos(540,1606)s118}TOO SLOW... {\c&HD4A4B8&scx112scy112}MAMI.{\c&HFFFFFF&scx100scy100}
+Dialogue: 0,0:00:54.95,0:00:55.00,Pop,,0,0,0,,{n5\pos(540,1606)s124scx125scy125	(0,110,scx100scy100)}LET'S DO IT!
+Dialogue: 0,0:00:55.00,0:00:55.20,Pop,,0,0,0,,{n5\pos(540,1606)s124}{\c&H00E5FF&scx112scy112}LET'S{\c&HFFFFFF&scx100scy100} DO IT!
+Dialogue: 0,0:00:55.20,0:00:55.35,Pop,,0,0,0,,{n5\pos(540,1606)s124}LET'S {\c&H00E5FF&scx112scy112}DO{\c&HFFFFFF&scx100scy100} IT!
+Dialogue: 0,0:00:55.35,0:00:55.92,Pop,,0,0,0,,{n5\pos(540,1606)s124}LET'S DO {\c&H00E5FF&scx112scy112}IT!{\c&HFFFFFF&scx100scy100}
