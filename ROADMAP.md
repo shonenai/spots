@@ -49,7 +49,7 @@ Trabajar por briefs para shönen.ai: campañas, producto, vídeo e imagen para r
 - [x] Miniserie, cuarto (2026-10-08): E3 atardecer y E4 noche ya hechas; plano de arquitecto E8 hecho; E5 (contraplano desde el escritorio) elegida, solo falta quitar la puerta del fondo (`generadas/escenarios/`). Pendiente recolocar los clips del cuarto (18 a 28) a esa distribución
 - [x] Miniserie, cuarto (2026-10-08): contraplano definitivo = `generadas/escenarios/E5_cuarto-contraplano_v3-silla-girada.webp` (silla de frente a la cámara, vacía). Con Noah sentado se hace editándola (ficha del plano 20). La vacía sirve también para el plano 28
 - [x] Miniserie, cuarto DEFINITIVO (2026-10-08): contraplano = `generadas/escenarios/E5_cuarto-contraplano_v4-con-puerta.webp` (silla de frente, puerta abierta al fondo a la izquierda: Noah se agarra a su marco). Clips del cuarto rehechos: 18 y 19 desde E3 (puerta, atardecer), 20 y 24 a 28 desde E5, 21 a 23 planos cerrados. E4 y E9 ya no se usan
-- [ ] GitHub (2026-10-08): `shonen-briefs` commiteado en local (`56ac5f3`) y `Edicion_Videos` iniciado con su commit; falta el `git push` de los dos, lo hace Iván (login de GitHub). Fuera de la subida: música, referencias de Higgsfield, `.mov` de Nike
+- [ ] GitHub (2026-10-08): `shonen-briefs` commiteado en local (`56ac5f3`) y `Edicion_Videos` iniciado con su commit; falta el `git push` de los tres (spots, Edicion_Videos y la web `PROYECTO SHONEN.AI/WEB - PROTOTIPOS/shonen-v0.7`, remoto `shonenai/web`), lo hace Iván (login de GitHub). Fuera de la subida: música, referencias de Higgsfield, `.mov` de Nike
 - [ ] Iván prueba las 4 skills y pasa el `LATHXBOT_KNOWLEDGE.md`
 - [ ] Análisis de competencia: 5 cuentas (estudios creativos con IA y marcas de moda/producto con buen gancho)
 
