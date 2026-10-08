@@ -11,6 +11,10 @@ Trabajos de vídeo y foto de shönen.ai hechos con Higgsfield (Soul 2.0, GPT Ima
 - `briefs/NIKE/`: spot «TOO SLOW», fotos de campaña, lookbook y guiones.
 - `briefs/MONSTER/breaking-bad/`: spot Monster x «Breaking Bad» (guion, referencias, fotogramas clave, prompts de Seedance, clips y voces).
 
+## Dos tipos de vídeo
+- **Clips de captación (23–25 s, vertical 9:16):** muy dinámicos, todo en movimiento, llamativos, «dopamina». Nada parado ni posado. Montados sobre una canción, con los cortes en el compás.
+- **Vídeos largos (1 min o más):** ritmo tranquilo, como hasta ahora, con algo más de retención y cámara lenta.
+
 ## Qué NO está en el repositorio
 - `.env` con las claves (scrapecreators, supadata): solo en local.
 - Los `.mov` maestros de Nike (`briefs/NIKE/Nike1.mov`, `nokia2.mov`): solo en local.

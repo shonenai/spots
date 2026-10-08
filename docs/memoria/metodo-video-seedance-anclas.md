@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 4db748f8-8779-4c9c-9c47-43349b167e13
-  modified: 2026-10-01T08:55:26.840Z
+  modified: 2026-10-01T13:22:40.439Z
 ---
 
 Flujo validado por Iván en el spot Monster x «Breaking Bad» (30-09 y 01-10-2026): guion por partes de 30 s → referencias (hojas de personaje con Soul 2.0, escenarios) → 4-5 fotogramas clave por parte con GPT Image 2.5 (hoja + escenario + producto) → Seedance 2.5 `omni_reference` con hojas sin cabeza + fotogramas como anclas (`@Image1…`) + muestra de voz como `audio_references` (`@Audio1`) → si falla un trozo, capturar fotogramas del propio clip y regenerar solo ese trozo corto.
@@ -20,5 +20,6 @@ Flujo validado por Iván en el spot Monster x «Breaking Bad» (30-09 y 01-10-20
 - Las subidas a Higgsfield (`media_upload`) necesitan la cabecera `If-None-Match: *` en el PUT; el audio se sube como MP3.
 - Prompt con el tope de 4.000 caracteres de la skill Nexus; con 8 cortes en 30 s cada corte queda en 200-300 caracteres.
 - LÍMITE DEL MÉTODO (spot corto Monster, 2026-10-01): anclar CADA corte a una foto ya terminada da «una sucesión de fotos», no un vídeo. Falló con 9 anclas en 24 s, todas en el momento cumbre de la acción y sin relación entre planos; Iván lo rechazó. Las anclas funcionan cuando hay pocas (4-5 en 30 s), marcan el antes o el después y entre ellas hay acción o diálogo que las une. Para piezas de acción: menos planos, más largos, en toma continua, con causa y efecto de un plano al siguiente, y la foto de arranque en el instante ANTERIOR a la acción.
+- FALLO DEL TRAMO 1 v3 (2026-10-01, 42 cr, rechazado): (1) identidad de Sophia perdida por usar como referencia una foto de escena (A03) en vez de su hoja de personaje; (2) risas con voz inventada por no pasar `@Audio1`: en TODA generación con Sophia o Enrique van su hoja y su muestra de voz, aunque solo se rían; (3) 10 acciones en 14 s: el modelo las resuelve como poses (Enrique ya colocado antes de flotar); (4) plano con la cámara subida a la tapa de la lata: la coge, abre y bebe al revés; (5) los «no» del prompt (ojos enteros brillando, columna de humo) no se respetaron. Regla: un plano = una acción = un clip corto, probar primero el plano más difícil, y avisar a Iván ANTES si una idea suya es físicamente rara para el modelo.
 - Iván quiere fotogramas en calidad alta: [[fotogramas-clave-calidad-alta]].
 - Formato del spot Monster: horizontal 16:9. Voces de Sophia y Enrique = las que sacó Seedance en la parte 1.

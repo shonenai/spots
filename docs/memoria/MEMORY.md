@@ -2,4 +2,7 @@
 - [Método vídeo Seedance con anclas](metodo-video-seedance-anclas.md) — flujo validado en Monster y trampas de Soul 2.0, GPT Image y Seedance en Higgsfield
 - [Avast rompe pip y Python](avast-rompe-pip-y-python.md) — intercepta HTTPS: fallos de certificado y de conexión al instalar paquetes
 - [No mezclar identidades de marca](no-mezclar-identidades-de-marca.md) — «como Nike» es formato, no recursos; cada spot tiene su identidad
+- [Prompts en página copiable](prompts-en-pagina-copiable.md) — si Iván genera él, página artefacto con botón que copia prompt + estilo + grid
+- [Iván genera, no Claude](ivan-genera-no-claude.md) — desde 2026-10-08 solo prompts; Claude no llama al generador de Higgsfield
+- [Prompts con pocos elementos](prompts-pocos-elementos.md) — escenarios típicos y mínimos; nada que Soul tenga que inventar de más
 - [Créditos: preguntar siempre](creditos-preguntar-siempre.md) — ninguna generación de pago sin el sí de Iván, ni repeticiones ni pruebas

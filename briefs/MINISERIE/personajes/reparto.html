@@ -1,0 +1,687 @@
+<title>Reparto de la Miniserie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=IBM+Plex+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;700&family=Silkscreen:wght@400;700&display=swap">
+<style>
+/* Layout: una columna de fichas; a la izquierda de cada ficha, el cuadro con la proporción real de la hoja (16:9 o 4:3). Un solo look, de noche: la serie pasa de la vida real (granate y crema) al juego (cian). */
+:root{
+  color-scheme:dark;
+  --night:#0D1017; --night2:#141924; --night3:#1C2331; --line:#2A3345;
+  --cream:#EFE6D6; --muted:#9AA3B5; --faint:#667089;
+  --burg:#C24A62; --burgd:#5C1626; --cyan:#35E0F2; --gold:#E2B04A;
+  --f-di:"Graduate","Rockwell","Georgia",serif;
+  --f-bo:"Schibsted Grotesk","Segoe UI",system-ui,sans-serif;
+  --f-mo:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --f-px:"Silkscreen","IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{background:var(--night)}
+body{color:var(--cream);font:15px/1.6 var(--f-bo);padding-inline:clamp(16px,4vw,48px);padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+header{padding-block:40px 26px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 12px/1.4 var(--f-mo);letter-spacing:.12em;text-transform:uppercase;color:var(--burg)}
+h1{font:400 clamp(30px,5.4vw,52px)/1.05 var(--f-di);margin:.35em 0 .35em;text-wrap:balance;letter-spacing:.01em}
+.lede{max-width:62ch;color:var(--muted);margin:0}
+.lede b{color:var(--cream)}
+.emblem{display:flex;align-items:center;gap:10px}
+.fr{border:2px solid var(--burg);border-radius:3px;height:clamp(48px,7vw,72px);display:grid;place-items:center;font:500 11px/1 var(--f-mo);color:var(--burg)}
+.fr.a{aspect-ratio:16/9}
+.fr.b{aspect-ratio:4/3;border-color:var(--cyan);color:var(--cyan);font-family:var(--f-px);box-shadow:0 0 22px #35e0f244}
+.arrow{color:var(--faint);font:500 16px/1 var(--f-mo)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--night) 93%,transparent);backdrop-filter:blur(6px);padding-block:14px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 13px/1 var(--f-bo);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer}
+.chip:hover{color:var(--cream);border-color:var(--faint)}
+.chip[aria-pressed="true"]{background:var(--cream);color:var(--night);border-color:var(--cream)}
+.chip:focus-visible,.btn:focus-visible,summary:focus-visible,.done input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.progress{font:500 13px/1 var(--f-mo);color:var(--muted);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px}
+.meter{width:120px;height:6px;border-radius:3px;background:var(--night3);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--cream);width:0;transition:width .3s}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-block:26px;color:var(--muted);font-size:14px}
+.how b{display:block;color:var(--cream);font:700 15px/1.3 var(--f-bo);margin-bottom:4px}
+.sec{padding-block:30px 6px}
+.sec-h{display:grid;gap:4px;margin-bottom:16px}
+.sec-k{font:500 12px/1 var(--f-mo);letter-spacing:.12em;text-transform:uppercase;color:var(--burg)}
+.sec.juego .sec-k{font-family:var(--f-px);color:var(--cyan);letter-spacing:.04em}
+.sec-t{font:400 clamp(21px,3vw,28px)/1.15 var(--f-di);margin:4px 0 0;text-wrap:balance}
+.sec.juego .sec-t{font:700 clamp(18px,2.6vw,24px)/1.25 var(--f-px)}
+.sec-d{color:var(--muted);margin:0;max-width:65ch}
+.cards{display:grid;gap:14px}
+.card{background:var(--night2);border:1px solid var(--line);border-radius:8px;padding:18px 20px;display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 20px}
+.card.is-done{opacity:.6}
+.fmt{grid-row:span 5;align-self:start;display:grid;gap:6px;justify-items:center;padding-top:4px}
+.fmt i{display:block;width:84px;border:2px solid var(--burg);border-radius:2px;background:linear-gradient(135deg,#5c162655,transparent)}
+.fmt i.r169{aspect-ratio:16/9}
+.fmt i.r43{aspect-ratio:4/3;width:72px;border-color:var(--cyan);background:linear-gradient(135deg,#35e0f222,transparent);box-shadow:0 0 14px #35e0f233}
+.fmt span{font:500 11px/1 var(--f-mo);color:var(--faint)}
+.top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.num{font:500 12px/1 var(--f-mo);color:var(--faint);font-variant-numeric:tabular-nums}
+.name{font:700 20px/1.2 var(--f-bo);margin:0}
+.tag{font:500 11px/1 var(--f-mo);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.tag.prota{border-color:var(--burg);color:var(--burg)}
+.tag.game{border-color:var(--cyan);color:var(--cyan);font-family:var(--f-px);letter-spacing:0}
+.where{font:500 13px/1.3 var(--f-bo);color:var(--muted);margin:2px 0 0}
+.rol{margin:6px 0 0;max-width:68ch}
+.line{margin:6px 0 0;font-size:14px;color:var(--muted);max-width:68ch}
+.line b{color:var(--cream);font-weight:700}
+.ref{margin:8px 0 0;font-size:13px;color:var(--cyan);max-width:68ch}
+.dir{margin:8px 0 0;font-size:14px;color:var(--muted);max-width:68ch}
+.refin{margin:4px 0 0;font-size:13px;color:var(--faint);max-width:68ch}
+.dir b,.refin b{color:var(--cream);font-weight:700}
+.btn.alt{background:transparent;color:var(--cream);border:1px solid var(--faint)}
+.btn.alt:hover{background:var(--night3)}
+.btn.alt.ok{background:var(--gold);color:var(--night);border-color:var(--gold)}
+.brief{margin:10px 0 0;font:13px/1.6 var(--f-mo);color:var(--muted);white-space:pre-wrap}
+.act{grid-column:2;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:12px}
+.btn{font:700 13px/1 var(--f-bo);background:var(--cream);color:var(--night);border:0;border-radius:6px;padding:11px 15px;cursor:pointer}
+.btn:hover{background:#fff}
+.btn.ok{background:var(--gold)}
+.done{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+.done input{accent-color:var(--gold);width:16px;height:16px}
+details{grid-column:2;margin-top:10px;min-width:0}
+summary{cursor:pointer;color:var(--muted);font:500 13px/1 var(--f-bo);list-style:none;display:inline-flex;gap:6px;align-items:center}
+summary:hover{color:var(--cream)}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--f-mo)}
+details[open] summary::before{content:"-"}
+pre{margin:10px 0 0;padding:14px 16px;background:#080A0F;border:1px solid var(--line);border-radius:8px;font:13px/1.6 var(--f-mo);color:#D5DAE6;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow:auto}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.blocks > div{min-width:0}
+.blocks h3{font:700 16px/1.3 var(--f-bo);margin:0 0 4px}
+.blocks p{color:var(--muted);margin:0;font-size:14px}
+footer{margin-top:36px;color:var(--faint);font-size:13px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:720px){
+  header{grid-template-columns:1fr}
+  .how,.blocks{grid-template-columns:1fr}
+  .card{grid-template-columns:1fr;padding:16px}
+  .fmt{grid-row:auto;grid-auto-flow:column;justify-content:start;align-items:center;gap:10px}
+  .fmt i.r169,.fmt i.r43{width:56px}
+  .act,details{grid-column:1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <div class="eyebrow">Miniserie · prólogo «No era una pregunta» · reparto v0.2 · 08-10</div>
+    <h1>Reparto de la Miniserie</h1>
+    <p class="lede">Las hojas de personaje, los escenarios y la ficha de la serie, con su prompt listo. Cada botón copia el prompt entero: <b>personaje + estilo + grid</b>. La vida real es imagen real en 16:9; dentro del juego todo pasa a anime en 4:3. Marca «hoja hecha» cuando la tengas y se guarda en este navegador.</p>
+  </div>
+  <div class="emblem" aria-hidden="true"><div class="fr a">16:9</div><span class="arrow">&gt;</span><div class="fr b">4:3</div></div>
+</header>
+
+<div class="bar">
+  <div class="chips" role="group" aria-label="Filtrar personajes">
+    <button class="chip" data-f="all" aria-pressed="true">Todos</button>
+    <button class="chip" data-f="real" aria-pressed="false">Vida real</button>
+    <button class="chip" data-f="juego" aria-pressed="false">Dentro del juego</button>
+    <button class="chip" data-f="escena" aria-pressed="false">Escenarios</button>
+    <button class="chip" data-f="video" aria-pressed="false">Vídeo · Kling</button>
+    <button class="chip" data-f="todo" aria-pressed="false">Sin hoja todavía</button>
+  </div>
+  <div class="progress"><span id="pc">0 / 0 hojas</span><span class="meter" aria-hidden="true"><i id="pm"></i></span></div>
+</div>
+
+<div class="how">
+  <div><b>1 · Copia</b>El botón copia el prompt completo. No hace falta juntar nada.</div>
+  <div><b>2 · Genera la hoja</b>Tres vistas sobre fondo gris: cara de frente, cuerpo entero de frente y de espaldas.</div>
+  <div><b>3 · Guárdala</b>En <code>briefs/MINISERIE/personajes/</code> con el nombre del personaje. Las versiones del juego se generan adjuntando la hoja real.</div>
+</div>
+
+<main id="list"></main>
+
+<div class="blocks">
+  <div><h3>Estilo · vida real</h3><p>Va dentro de los prompts de vida real.</p><pre id="b-real"></pre></div>
+  <div><h3>Grid · vida real (16:9)</h3><p>Tres vistas y la lista de cosas que no deben salir.</p><pre id="b-grid"></pre></div>
+  <div><h3>Estilo · juego (anime)</h3><p>Va dentro de los prompts del juego.</p><pre id="b-anime"></pre></div>
+  <div><h3>Grid · juego (4:3)</h3><p>Las mismas tres vistas, en 4:3.</p><pre id="b-grid2"></pre></div>
+</div>
+<footer>Shönen AI · estudio · los nombres son de trabajo y se pueden cambiar. Para añadir un personaje basta con una entrada más en la lista.</footer>
+</div>
+<div class="sr" aria-live="polite" id="live"></div>
+
+<script>
+const JACKET = "a burgundy wool varsity jacket with cream leather sleeves, burgundy and cream striped ribbed collar, cuffs and hem, cream snap buttons, two slanted front pockets, completely plain with no letters, no patches and no numbers";
+
+const CAM = "real optical behavior, natural lens falloff, true depth of field, optical bokeh bloom, micro-aberrations, real-world chromatic behavior";
+const TAIL = "photorealistic, unretouched, tactile surface detail, lived-in realism, natural film grain, physically plausible light";
+const NEG_ESC = "people, figures, faces, text, letters, numbers, logos, signage, impossible geometry, structural errors, floating elements, illegible text, wrong characters, misspelled words, HDR look, oversaturated colors, plastic surfaces, CGI look, fake film overlay, excessive bloom, artificial bokeh";
+const NEG_OBJ = "hands, fingers, legible text, letters, numbers, logos, product distortion, wrong scale, color shift, CGI look, fake glow overlay, excessive bloom, artificial bokeh, extra objects, background gradient";
+const NEG_E1 = NEG_ESC.replace("people, figures, faces, ", "people in the corridor, students, ") + ", flat vector logo look, cartoon samurai, graphic emblem, illustrated poster";
+const ROOM = "a lived-in teenage bedroom of about 4 by 5 meters with pale grey walls and a dark navy carpet, a double bed with a dark wooden headboard and a navy duvet along the left wall, three sports photo posters on the wall above the bed, a window on the far wall with half-drawn cream curtains, a dark wooden desk along the right wall holding a monitor and a black gooseneck desk lamp, a black leather office chair pulled out beside the desk, a wall-mounted glass case holding a football above the desk, clothes scattered on the carpet beside the bed and a black gym bag against the far wall";
+const PLAN = "Orthographic view from directly above at 90 degrees with the ceiling removed, composed like an architect development sheet: the floor of the room in the center and the four walls folded flat outward around it like an unfolded box, each wall seen face-on and showing what is on it, on a plain pale grey background, soft even lighting with no cast shadows, realistic materials. The room is 4.0 meters east-west by 4.5 meters north-south with a 2.5 meter ceiling; the floor is dark navy carpet and the walls are pale grey. Floor, with every object seen from above in its exact place: a double bed 1.5 by 2.0 meters with a dark wooden headboard and a navy duvet, its head against the north wall and its west side against the west wall; a bedside table 0.5 by 0.4 meters against the north wall at the east side of the bed; a dark wooden desk 1.5 by 0.6 meters against the east wall with its north end 0.4 meters from the north wall; a black leather office chair 0.6 by 0.6 meters on the west side of the desk, turned at an angle; a black gym bag 0.7 by 0.3 meters on the floor against the north wall between the bedside table and the window; a pile of clothes about 1.0 by 0.8 meters on the carpet at the foot of the bed; the doorway 0.9 meters wide in the south wall, 3.0 meters from the west wall, with the wooden door standing open beside it. North wall face-on: a window 1.2 by 1.2 meters with its sill at 0.9 meters, centered 2.6 meters from the west wall, with half-drawn cream curtains; three sports photo posters above the bed, each about 0.6 by 0.9 meters, with indistinct faces; the bed headboard against it. East wall face-on: the desk with a 27-inch monitor at its north end and a black gooseneck desk lamp, and above it a wall-mounted glass display case 0.4 by 0.25 meters at 1.5 meters height holding an American football. South wall face-on: the 0.9 by 2.0 meter doorway with the six-panel wooden door open, otherwise a plain pale grey wall. West wall face-on: a plain pale grey wall with the long side of the bed against it. Small white numbered circles from 1 to 9 mark the objects; no other text and no dimension numbers.";
+
+const VOICE_E = "A 21-year-old from Madrid, native Castilian Spanish. Warm chest voice, quick and cocky; under pressure the pitch climbs and the words get shorter.";
+const VOICE_D = "A 21-year-old from Madrid, native Castilian Spanish. Loud deep voice that laughs mid-sentence; stays boisterous under pressure.";
+const VOICE_H = "A 20-year-old Japanese exchange student speaking Castilian Spanish with a light Japanese accent. Soft measured voice; goes flat and cold when he is cornered.";
+const VOICE_S = "A 20-year-old from Madrid, native Castilian Spanish. Clear confident mid-range voice; firm and clipped when she disapproves.";
+const WHO = (n, v) => n + " - Already image referenced in the first frame. " + (v ? 'Voice: "' + v + '" Voice only.' : "Character appearance only.");
+const mk = (d, who, scene, tech, cut, snd) => who.join("\n") + "\n\nSCENE: Horizontal 16:9, " + d + " seconds, " + scene + "\n\nTECH: " + tech + "\n\nCUT - " + cut + "\n\nSOUND: " + snd;
+const T_CAMPUS = `35mm film, fine grain, natural skin texture with pores. Lighting lock: hard warm mid-morning sun from the tall windows on the left wall, long light bars across the polished floor, no flat frontal fill. Warm saturated colour with burgundy and cream on the jackets and lockers, no cyan anywhere in the frame. Everything has weight: bodies, bags and paper obey gravity, cloth and hair lag behind movement.`;
+const T_CASA = `35mm film, fine grain, natural skin texture with pores. Lighting lock: last orange daylight as a thin raking strip from the frosted side window on camera-right, cold blue-grey ambient shadow, one warm tungsten lamp far away on the landing. Desaturated amber and blue-grey, no cyan except where stated. Everything has weight: cloth lags behind movement, objects obey gravity.`;
+const T_DUSK = `35mm film, fine grain, natural skin texture with pores. Lighting lock: low orange sunset light through the window, warm on the cream curtains and on the open door panel at the right edge of the frame, the rest of the room in blue-grey shadow, no flat frontal fill. Everything has weight: the chair flexes, cloth lags behind movement.`;
+const T_NIGHT = `35mm film, fine grain, natural skin texture with pores. Lighting lock: cold blue street light through the window, the room otherwise dark, the black gooseneck desk lamp pooling warm amber light on the desk when it is lit, the far corners falling into black, no flat frontal fill. Everything has weight: the chair flexes and creaks, cloth lags behind movement.`;
+const V = (id, n, d, snd, nombre, rol, arr, prompt, ref, start) => ({
+  id: id, sec: "video", estilo: "video", nombre: nombre,
+  tag: d + " s · " + (d * (snd ? 1.25 : 1)).toString().replace(".", ",") + " cr", tagc: "",
+  donde: "Kling 3.0 Omni (Frames) · std · sonido " + (snd ? "sí" : "no"),
+  rol: rol, planos: n, etFijo: "Imagen de arranque", fijo: arr, prompt: prompt, ref: ref, start: start });
+
+const STYLE = {
+  real: "Photographed as a real person: authentic unretouched skin with visible pores, uneven skin tone, natural under-eye texture, shot on 35mm film, fine grain, documentary candid realism, natural colours.",
+  anime: "Drawn as 2D anime in clean cel animation: confident ink outlines with varied line weight, flat colours with hard two-tone shadows, sharp angular highlights in the hair, large expressive eyes with detailed irises, fantasy RPG costume design, a thin electric cyan rim light on one side."
+};
+const GRID = {
+  real: "3-panel character sheet, 16:9, on a flat neutral grey background, soft natural window light from the left, no environment, no props, no cast shadows on the backdrop. Panel 1: front-facing close-up of the head and shoulders. Panel 2: full body, front view, neutral standing pose. Panel 3: full body, back view, same pose and scale. Consistent face, proportions and costume across all three panels. No text, no letters, no numbers, no logos, no patches, no watermark, no film borders, no extra fingers, no duplicate limbs, no illustration, no 3D render, no plastic skin.",
+  anime: "3-panel character sheet, 4:3, on a plain light grey background, no environment, no props. Panel 1: front-facing close-up of the head and shoulders. Panel 2: full body, front view, neutral standing pose. Panel 3: full body, back view, same pose and scale. Consistent face, proportions and costume across all three panels. No text, no letters, no numbers, no logos, no watermark, no 3D render, no photorealism, no extra fingers."
+};
+
+const SECS = [
+  {id:"real", k:"Vida real · 16:9 · persona real", t:"El campus", d:"Aquí manda el cuerpo. Noah es el centro y Hiro no existe para nadie."},
+  {id:"juego", k:"Dentro del juego · 4:3 · anime", t:"El juego", d:"Aquí manda quien lo conoce. Adjunta siempre la hoja real del personaje para que se le reconozca."},
+  {id:"escena", k:"Escenarios · 16:9 · sin personas", t:"Los lugares y la ficha", d:"Fondos vacíos para las imágenes de arranque, con un detalle de mundo por lugar. El cuarto sale desde tres encuadres: genera primero «noche · desde la puerta» y úsalo como referencia de los otros dos para que casen."},
+  {id:"video", k:"Vídeo · Kling 3.0 Omni (Frames) · 16:9", t:"Los 28 planos del prólogo", d:"Un plano = un clip. Cada clip arranca en su imagen de arranque (la que indica la ficha), puesta como primer fotograma. Sonido activado solo donde hay frase o efecto clave. Los textos en pantalla y los títulos se hacen en el montaje, no se generan. Orden recomendado de pruebas: 20 y 26 primero, que son los más difíciles. Cada ficha trae aparte el prompt de su imagen de arranque y las imágenes que hay que adjuntar. Los planos 16 a 28 (casa y cuarto) todavía no tienen escrito el prompt de imagen de arranque."}
+];
+
+const CHARS = [
+  {id:"01", sec:"real", estilo:"real", nombre:"Noah", tag:"Protagonista", tagc:"prota",
+   donde:"Quarterback · 21 años",
+   rol:"El más fuerte del campus y el centro de todo. Chulo, simpático con los suyos y cruel con el resto.",
+   juego:"Nivel 1, sin clase. No sabe ni abrir el inventario.",
+   fijo:"Cicatriz en la ceja izquierda y cadena de plata.",
+   prompt:"A 21-year-old Spanish university quarterback, 1.88 m, athletic V-shaped build with broad shoulders and a thick neck, tanned olive skin, short dark brown hair with a low fade and a messy textured top, thick dark eyebrows with a thin old scar cutting through the left one, brown eyes, strong square jaw, clean-shaven, a cocky half-smile with the chin slightly raised. He wears " + JACKET + ", worn open over a plain white crew-neck t-shirt, straight light-wash jeans, clean white leather sneakers, a thin silver chain at the neck. Relaxed dominant posture, weight on one leg, hands loose."},
+  {id:"02", sec:"real", estilo:"real", nombre:"Hiro, el «nerd»", tag:"Clave", tagc:"prota",
+   donde:"Estudiante japonés de intercambio · 20 años · nombre provisional",
+   rol:"Invisible, pegado a la pared, empujado contra las taquillas. No es débil: es paciente.",
+   juego:"Nivel alto: mago o estratega. El que manda.",
+   fijo:"Gafas redondas y la ficha metálica clipada a la correa de la mochila (rombo blanco con punto cian), el símbolo del juego.",
+   prompt:"A 20-year-old Japanese exchange student, 1.70 m, slim narrow-shouldered build, pale skin, straight black hair falling in a soft fringe over the forehead, thin round metal-frame glasses, dark calm almond eyes with faint tired shadows under them, small closed mouth, an unreadable patient expression. He wears an oversized charcoal-grey hoodie with the hood down, a large worn black backpack on both shoulders with a single small round enamel pin on the left strap showing a white diamond shape with a cyan dot in its centre, dark olive cargo trousers, scuffed black canvas sneakers, white wired earphones hanging around his neck. Long thin fingers. Posture slightly hunched, shoulders in, eyes lowered, as someone who has learned to take up no space."},
+  {id:"03", sec:"real", estilo:"real", nombre:"Sophia, la protagonista femenina", tag:"Secundaria", tagc:"",
+   donde:"La más popular del campus · 20 años",
+   rol:"Se ríe con el grupo, pero es la única que mira atrás. La hoja ya está hecha (coleta alta, jersey crema y falda granate). Este prompt solo hace falta si hay que repetirla.",
+   juego:"Por decidir. Propuesta: sanadora.",
+   fijo:"Aros dorados pequeños.",
+   prompt:"A 20-year-old Spanish university student, 1.70 m, slim athletic build, light tanned skin with a few freckles on the nose, long chestnut-brown hair in a high ponytail with loose strands at the temples, hazel-green eyes, full natural eyebrows, light natural make-up, a bright confident smile that does not quite reach the eyes. She wears a cream cropped knit sweater, a burgundy pleated mini skirt, white ankle socks, white leather sneakers, small gold hoop earrings, a thin gold bracelet, a cream canvas tote bag on one shoulder. Upright posture, chin level, one hand on the bag strap."},
+  {id:"04", sec:"real", estilo:"real", nombre:"Bruno, el amigo bajito y rechoncho", tag:"Secundario", tagc:"",
+   donde:"Compañero de equipo · 21 años",
+   rol:"Coro de risas. El que más ruido hace.",
+   juego:"Carne de cañón, si entra.",
+   fijo:"La chaqueta del equipo.",
+   prompt:"A 21-year-old Spanish university football player, 1.75 m, short and stocky heavy build with a broad chest and thick arms, fair sun-reddened skin, very short blond buzz cut, pale blue eyes, a slightly crooked nose that was once broken, wide loud grin showing teeth. He wears " + JACKET + ", worn open over a light grey hoodie, black tapered joggers, chunky white running shoes. Stands wide, arms slightly away from the body, head tilted back mid-laugh."},
+  {id:"05", sec:"real", estilo:"real", nombre:"Dereck, el amigo", tag:"Secundario", tagc:"",
+   donde:"Compañero de equipo · 21 años",
+   rol:"Coro de risas. El que azuza a los demás.",
+   juego:"Carne de cañón, si entra.",
+   fijo:"La chaqueta del equipo.",
+   prompt:"A 21-year-old Spanish university football player, 1.75 m, compact powerful running-back build with a thick neck and strong legs, warm brown skin, short tight black curls with a clean fade, dark brown eyes, a small gap between the front teeth, a sly sideways grin. He wears " + JACKET + ", zipped halfway over a black t-shirt, a plain black cap worn backwards, grey sweat shorts over black compression leggings, black high-top sneakers. Bouncy restless posture, weight on the balls of his feet, thumbs hooked in the jacket pockets."},
+  {id:"J1", sec:"juego", estilo:"anime", nombre:"Noah en el juego", tag:"LV 1", tagc:"game",
+   donde:"Recién llegado · sin clase",
+   rol:"El mismo cuerpo de atleta, que aquí no sirve de nada. Ropa de principiante que le queda pequeña.",
+   juego:"Espada de madera en la mano equivocada.",
+   fijo:"Cicatriz en la ceja izquierda y cadena de plata.",
+   ref:"Adjunta la hoja 01 (Noah) como imagen de referencia.",
+   prompt:"Anime version of the same young man from the reference image: same face shape, same short dark brown hair with a messy textured top, same thin scar through the left eyebrow, same thin silver chain at the neck. He is a level 1 beginner: a rough undyed linen tunic too small for his broad shoulders, a frayed rope belt, patched brown trousers, worn leather sandals, a chipped wooden training sword held awkwardly in the wrong hand. His athletic build is still there but looks out of place. Expression: confused and offended, eyebrows knitted, mouth half open."},
+  {id:"J2", sec:"juego", estilo:"anime", nombre:"Hiro en el juego", tag:"LV alto", tagc:"game",
+   donde:"Mago estratega",
+   rol:"Erguido, tranquilo, ocupando todo el espacio que nunca ocupó fuera.",
+   juego:"Bastón con el rombo blanco de núcleo cian: el mismo símbolo del pin y dla ficha.",
+   fijo:"Gafas redondas, ahora con reflejo cian.",
+   ref:"Adjunta la hoja 02 (Hiro) como imagen de referencia.",
+   prompt:"Anime version of the same young man from the reference image: same face, same straight black fringe, same thin round glasses, now with a faint cyan reflection on the lenses. He is a high-level strategist mage: a long fitted midnight-blue coat with a high collar and thin cyan glowing seams, layered dark tunic, fingerless gloves, tall boots, a slim black staff topped with a floating white diamond with a cyan core, a worn leather satchel across the chest. He stands completely upright, shoulders open, chin level, one hand resting on the staff, a calm small smile. He takes up all the space he never took before."},
+  {id:"E1", sec:"escena", estilo:"escena", nombre:"Pasillo del campus", tag:"Día", tagc:"",
+   donde:"Interior · media mañana", rol:"Un pasillo típico de instituto estadounidense, ordenado: una hilera de taquillas granates, ventanales al otro lado, suelo brillante de baldosa crema, paneles fluorescentes y puertas dobles al fondo. Sin decoración a propósito.",
+   planos:"Referencia de luz del pasillo", ref:"Opcional, como guía de estilo: la foto del pasillo ordenado de taquillas verdes (guardada en briefs/MINISERIE/referencias/). Con Nano Banana o Seedream, añade al principio: «Keep the layout, floor, ceiling and tidy style of the reference, but make the lockers burgundy and replace the left wall with a row of tall windows.» Con Soul 2.0 no la adjuntes: copia la imagen tal cual.", etFijo:"Detalle de mundo", fijo:"Ninguno a propósito: cuantas menos cosas se inventa el generador, menos hay que repetir en cada plano.",
+   dir:"Es el pasillo que cualquiera reconoce de una película de instituto: limpio, soleado y vacío. No añadas nada que no esté en el prompt.",
+   refin:"Luz: cielo nublado y luz plana de ventanal. Ángulo: de frente hacia las puertas del fondo. Gesto: una puerta de taquilla entreabierta.",
+   brief:"Concept: Plain empty American university corridor at mid-morning, a single bank of burgundy lockers on one side, tall windows on the other.\nTechnical: Canon 35mm f/1.4, static tripod at chest height, warm window sun in soft diagonal bars on a glossy vinyl tile floor.\nMood: Familiar, clean, ordinary.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", wide-angle hero shot of a long empty American university corridor, static tripod composition at chest height with the vanishing point slightly right of center, a single continuous bank of burgundy-painted metal lockers along the right wall, a row of tall windows along the left wall letting in warm mid-morning sun as soft diagonal bars across a glossy cream vinyl tile floor, smooth beige painted walls, a flat white ceiling with evenly spaced rectangular fluorescent panels switched on, a pair of plain double doors at the far end, no people in frame, slight clipped highlights on the sunlit floor, subtle ISO noise in the locker shadows, leading lines from the lockers to the far doors, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_ESC + ", banners, posters, decorations, trophies, flags, clutter",
+   express:"Warm morning sun across glossy cream tile and burgundy lockers, ordinary and tidy, hyperreal."},
+  {id:"E2", sec:"escena", estilo:"escena", nombre:"Recibidor de la casa", tag:"Atardecer", tagc:"",
+   donde:"Interior · última luz del día", rol:"Una casa enorme y vacía. Nadie contesta cuando entra.",
+   planos:"16 y 17", etFijo:"Detalle de mundo", fijo:"La escalera ancha con una sola lámpara encendida al fondo.",
+   dir:"La casa debe sentirse demasiado grande para una sola persona. Mantén la única lámpara encendida al fondo y el cuenco de las llaves vacío.",
+   refin:"Luz: azul de última hora sin sol directo, solo la lámpara. Ángulo: desde lo alto de la escalera hacia la puerta. Gesto: las llaves ya tiradas en el cuenco.",
+   brief:"Concept: Empty family entrance hall at dusk, a wide staircase rising to one lit lamp, a house too large for one person.\nTechnical: Canon 35mm f/1.4, static tripod at eye height from the front door, raking orange side light against cold blue ambient.\nMood: Quiet, expensive, lonely.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", wide-angle hero shot of an empty family entrance hall seen from just inside the front door, static tripod composition at eye height, a wide pale oak staircase with a dark runner rising from the center of frame to a landing 8 meters away where one warm tungsten table lamp is lit as the only practical light, last orange daylight entering from a frosted side window on camera-right as a thin raking strip across a polished stone floor, cold blue-grey ambient shadow filling the rest of the hall, cream plaster walls with two framed photographs seen at a slant with indistinct figures, a narrow console table in the left foreground holding an empty ceramic key bowl, no people in frame, faint dust on the console, scuffed stone near the door, slight clipped highlights on the window glass, subtle ISO noise in the blue shadows, symmetrical stair lines converging on the lamp, large negative space on the floor, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_ESC,
+   express:"Last orange daylight over cold stone and pale oak, one lamp glowing far away, empty and enormous, hyperreal."},
+  {id:"E3", sec:"escena", estilo:"escena", nombre:"Cuarto de Noah · atardecer · desde la puerta", tag:"Ya hecha", tagc:"prota",
+   donde:"Interior · sol rojizo bajo", rol:"El cuarto antes de que pase nada. Esta imagen ya la tienes y es la referencia de todo el cuarto.",
+   planos:"18 y 19", ref:"Ya la tienes: la imagen del cuarto al atardecer, guardada en generadas/escenarios/E3_cuarto-atardecer.webp. Es la imagen de referencia de E4 y E5.", etFijo:"Detalle de mundo", fijo:"La vitrina de cristal con el balón sobre el escritorio.",
+   dir:"No la cambies: el resto del cuarto se hace editando esta imagen, no generando otra. Conserva la puerta a los dos lados, la cama a la izquierda y el escritorio a la derecha.",
+   refin:"Luz: el mismo sol más bajo y rojizo. Ángulo: desde el escritorio hacia la puerta. Gesto: la silla girada hacia el monitor.",
+   brief:"Concept: The bedroom seen from the open doorway at sunset, before anything happens.\nTechnical: Canon 35mm f/1.4, static tripod at chest height, door frame at the left edge, open door at the right edge, low orange sun in the window.\nMood: Calm, lived-in, about to turn.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", wide-angle hero shot from just inside an open bedroom doorway, static tripod composition at chest height, a door frame at the left edge and an open door panel at the right edge of the frame, looking straight into " + ROOM + ", sunset: the sun is a low orange disk in the window and its warm orange light spills across the curtains and the door panel at the right edge, the rest of the room in deep blue-grey shadow, the monitor screen off and the desk lamp off, no people in frame, a creased duvet, a soft amber glint on the glass case, slight clipped highlights on the window, subtle ISO noise in the blue shadows, diagonal depth from the door frame to the window, layered depth between frame edge, bed, window and desk, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_ESC,
+   express:"Low orange sun through cream curtains on a navy duvet and dark wood, blue shadows, quiet before the night, hyperreal."},
+  {id:"E4", sec:"escena", estilo:"escena", nombre:"Cuarto de Noah · noche · desde la puerta", tag:"Noche", tagc:"",
+   donde:"Interior · luz de la calle y la lámpara del escritorio", rol:"El mismo cuarto y el mismo encuadre que E3, de noche, con el monitor apagado. Aquí empieza el miedo.",
+   planos:"Opcional: ya no se usa en los clips", ref:"Adjunta la imagen de E3 y usa el botón «Copiar versión con imagen de referencia»: es una edición que solo cambia la luz. Con Soul 2.0 no la adjuntes, la copia sin cambiar nada.", etFijo:"Detalle de mundo", fijo:"La vitrina de cristal con el balón sobre el escritorio.",
+   dir:"Mismo cuarto, solo cambia la hora. La lámpara de gancho negra, encendida, deja un charco ámbar contra el azul de la calle. El monitor, apagado: la luz cian la añade el plano siguiente.",
+   refin:"Luz: solo la luz de la calle, con la lámpara apagada. Ángulo: a ras de suelo desde la puerta. Gesto: la lámpara parpadeando una vez.",
+   brief:"Concept: The same bedroom and framing at night, one amber desk lamp against cold street blue, the monitor dark.\nTechnical: Canon 35mm f/1.4, static tripod at chest height, door frame left, open door right, mixed tungsten practical and street light.\nMood: Lonely, tense, held breath.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", wide-angle hero shot from just inside an open bedroom doorway, static tripod composition at chest height, a door frame at the left edge and an open door panel at the right edge of the frame, looking straight into " + ROOM + ", night: the sunset is gone and the window shows deep blue darkness with a faint street-light glow, the only ambient light is cold blue street light entering through the window and falling on the curtains, the duvet and the carpet, the black gooseneck desk lamp is switched on and pools warm amber light on the desk, the monitor screen off and dark, the far corners of the room falling into black, no people in frame, a soft amber glint on the glass case, slight clipped highlights on the lamp shade, subtle ISO noise in the dark carpet, slight focus falloff toward the far wall, diagonal depth from the door frame to the window, layered depth between frame edge, bed, window and desk, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   start:"Edit the attached image. Keep the exact same room, camera position, framing, door frame and open door, bed, posters, window, curtains, desk, monitor, chair, glass case, clothes and every other object, unchanged. Change only the lighting and the time of day: replace the orange sunset in the window with a deep blue night sky and a faint street-light glow; remove all the warm sunset light from the walls, the curtains and the door; light the room only with cold blue street light coming through the window plus the black gooseneck desk lamp switched on, pooling warm amber light on the desk, with a soft amber glint on the glass case; the monitor stays off and dark; the far corners fall into black. Do not add or remove any object. No text, no people.",
+   negativo:NEG_ESC,
+   express:"One amber desk lamp pooling on dark wood against cold street blue, lonely, tense, hyperreal."},
+  {id:"E5", sec:"escena", estilo:"escena", nombre:"Cuarto de Noah · noche · contraplano desde el escritorio", tag:"Definitiva", tagc:"prota",
+   donde:"Interior · resplandor de pantalla fuera de plano", rol:"La imagen elegida: la silla de cuero de frente a la cámara, la cama pegada a la pared del fondo con los pósters encima, la ventana a la derecha y la puerta abierta al fondo a la izquierda, a la que Noah se agarra cuando lo tira el ordenador.",
+   planos:"20, 24 a 28", ref:"Ya la tienes y no hay que tocarla: generadas/escenarios/E5_cuarto-contraplano_v4-con-puerta.webp. Sirve como primer fotograma del plano 28 y como base para añadir a Noah en los planos 20, 24, 26 y 27.", etFijo:"Detalle de mundo", fijo:"La puerta abierta al pasillo oscuro, al fondo a la izquierda: el marco blanco del que se agarra en el plano 26.",
+   dir:"La puerta existe a propósito: es lo que da a Noah un sitio donde agarrarse. No la quites. No hace falta que coincida con el plano de arquitecto E8; lo que tiene que repetirse es la cama azul marino, los pósters, la cortina, la silla de cuero, la moqueta y el marco blanco de la puerta.",
+   refin:"Luz: el resplandor pasa de azul frío a cian eléctrico. Ángulo: más bajo, a la altura del asiento. Gesto: la silla gira medio giro sola.",
+   brief:"Concept: The bedroom at night with an empty leather chair in the foreground, the bed along the back wall and an open doorway at the back left.\nTechnical: Wide cinematic still at monitor height, glow from behind the camera.\nMood: Expectant stillness.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", wide-angle hero shot of a teenage bedroom at night, static tripod composition at monitor height, the dark edge of a monitor at the far left edge of the frame and a stack of books at the bottom left, a black leather office chair at the center of the frame 1.5 meters from the camera turned toward the camera with worn brown leather armrests, a double bed with a dark wooden headboard, two pillows and a navy duvet at center-right behind the chair with its long side toward the camera, a bedside table with a few small objects at its right end, three sports photo posters on the back wall above the head of the bed, the edge of a window with a cold blue curtain at the right edge of the frame, an open doorway to a dark hallway with a white-painted door frame at the back left, a plain pale blue-grey wall between the doorway and the left edge, a black gym bag on the carpet near the doorway, clothes scattered on the dark navy carpet at the left and at the foot of the bed, the only light is a cold blue-white glow arriving from behind the camera as if from a screen, falling on the chair and the carpet as a soft pool, the far corners falling into black, no screen visible, no people in frame, a creased duvet, slight focus falloff toward the back wall, subtle ISO noise in the black corners, the chair as the isolated subject against the dark room, layered depth between chair, bed and posters, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_ESC,
+   express:"Cold blue-white screen glow pooling on an empty leather chair in front of a navy bed, expectant stillness, hyperreal."},
+  {id:"E9", sec:"escena", estilo:"escena", nombre:"Cuarto de Noah · noche · contraplano con el plano y la cámara roja", tag:"Descartada", tagc:"",
+   donde:"Interior · resplandor de pantalla fuera de plano", rol:"El mismo contraplano de E5, pero generado a partir del plano con el icono de cámara y el cono de visión, más la imagen del cuarto de noche. Es la versión que respeta la distribución real (la cama pegada a la pared, la cabecera a la derecha).",
+   planos:"19 a 23", ref:"Adjunta, en este orden: 1) la imagen del cuarto de noche (E4) y 2) el plano con la cámara roja (generadas/escenarios/E8b_plano-con-camara.webp). Genera 4 variantes y compáralas con E5: te quedas con la que mejor te cuadre; si ninguna, la de E5 con la puerta quitada.", etFijo:"Detalle de mundo", fijo:"La cama azul marino, los pósters y la cortina fría a la derecha; todo lo del escritorio queda detrás de la cámara.",
+   dir:"El cono rojo manda: lo que cae dentro es lo que sale. No dejes que dibuje el icono, el cono ni los números.",
+   refin:"Luz: el resplandor pasa de azul frío a cian eléctrico. Ángulo: cámara más baja, a la altura del asiento. Gesto: la silla girada medio giro.",
+   brief:"Concept: The bedroom at night seen from the desk through the red camera cone, an empty leather chair in front of the bed.\nTechnical: Wide cinematic still at monitor height looking west, glow from behind the camera.\nMood: Expectant stillness.",
+   prompt:"Image 1 is the reference of the real bedroom at night: copy its look exactly (pale grey walls, dark navy carpet, navy duvet, dark wooden headboard and bed frame, three sports posters, cream curtains, black leather office chair with worn armrests, black gym bag, clothes on the carpet, film grade and grain). Image 2 is a plan of the same room: the red camera icon marks where the camera stands and the red cone shows exactly what it sees. Create a photograph taken from that red camera position, at monitor height, looking west across the room. Do not draw the red camera, the red cone or the numbered circles. Inside the cone, from left to right: the clothes on the carpet at the foot of the bed at the left; the double bed running across the frame with its long side toward the camera and its head and pillows at the right end; the bedside table with a few small objects at the far right end of the bed; the three sports posters on the wall above the head of the bed at the right; the lower part of the cream curtains at the top right edge. In the middle: the black leather office chair about 2 meters from the camera, turned a quarter turn toward the camera, and the black gym bag on the carpet behind it. The desk, the monitor, the lamp and the glass case are behind the camera and must not appear; the window itself is outside the frame; no doorway and no door are visible. Lighting: night; a cold blue-white glow arrives from behind the camera as if from a computer screen and falls on the chair and the carpet as a soft pool; a faint warm amber glow from the desk lamp touches the chair armrest; the far corners fall into black. Wide-angle cinematic still, 16:9, no people, no text. Do not add objects that are not in the references.",
+   negativo:NEG_ESC + ", doorway, door, red camera icon, red cone, numbered circles",
+   express:"Cold blue-white screen glow pooling on an empty leather chair in front of a navy bed, expectant stillness, hyperreal."},
+  {id:"E6", sec:"escena", estilo:"escena", nombre:"Zona de taquillas · plano de la escena", tag:"Día", tagc:"",
+   donde:"Interior · media mañana, el mismo pasillo que E1", rol:"Donde pasa toda la escena: la hilera de taquillas con la de Hiro (la tercera por la izquierda) y, al fondo, unas puertas dobles.",
+   planos:"02 a 15", ref:"Opcional: la misma foto de referencia del pasillo ordenado (ver E1). Mismas instrucciones.", etFijo:"Detalle de mundo", fijo:"Ninguno a propósito: taquillas granates, ventanales y puertas dobles al fondo. El guiño va dentro de la taquilla (E7), no aquí.",
+   dir:"Debe parecer un pasillo de verdad, sin nada que avise: la acción ocurre delante. Las puertas del fondo, pequeñas y lejanas; sin nada más que lo que dice el prompt.",
+   refin:"Luz: el mismo sol pero con cielo nublado y reflejo plano. Ángulo: perpendicular a las taquillas, de frente. Gesto: una taquilla entreabierta al fondo.",
+   brief:"Concept: The locker bay where the whole scene happens, Hiro's locker third from the left, double doors far at the end.\nTechnical: Canon 35mm f/1.4, static tripod at chest height 4 m from the wall at 30 degrees, hard warm window sun.\nMood: Ordinary, warm, nothing announced.",
+   prompt:"cinematic camera package, Canon 35mm f/1.4 prime on a full-frame cinema body, " + CAM + ", medium wide shot of a bank of eight burgundy-painted metal lockers along the right wall of an American university corridor, camera at chest height 4 meters from the wall and angled 30 degrees to it, static tripod composition, the third locker from the left at the center of frame, warm mid-morning sun from tall windows on the left as soft diagonal bars across a glossy cream vinyl tile floor, evenly spaced rectangular fluorescent ceiling panels switched on, the corridor receding to a pair of plain double doors at the far end 18 meters away, smooth beige painted walls, no people in frame, slight clipped highlights on the floor, subtle ISO noise in the locker shadows, leading lines from the lockers to the far doors, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_ESC,
+   express:"Warm window sun on burgundy lockers and glossy cream tile, ordinary and tidy, hyperreal."},
+  {id:"E7", sec:"escena", estilo:"escena", nombre:"Interior de la puerta de la taquilla · el guiño", tag:"Detalle", tagc:"prota",
+   donde:"Macro · luz que rebota dentro de la taquilla", rol:"El guiño a tu canal: un ensō lila a rotulador, pequeño, entre las cosas de Hiro. Solo se lee si te paras en él.",
+   planos:"03", etFijo:"Guiño", fijo:"Un círculo lila a mano alzada, abierto arriba a la derecha, de unos 3 cm, entre un horario ilegible, un espejito y notas.",
+   dir:"El círculo no debe destacar: que se vea al desplazarse el foco, no al primer vistazo. Nada de texto legible.",
+   refin:"Luz: un rayo de ventana cruzando la puerta. Ángulo: ligeramente desde abajo. Gesto: un pósit medio despegado.",
+   brief:"Concept: Inside of an open locker door, clutter of a student's life, one small lilac circle drawn by hand among it.\nTechnical: Canon 50mm f/1.4, static tripod 50 cm away, soft bounced light, shallow focus.\nMood: A small private secret.",
+   prompt:"cinematic camera package, Canon 50mm f/1.4 prime on a full-frame cinema body, " + CAM + ", extreme close-up of the inside face of an open metal locker door, camera 50 centimeters from it, static tripod composition, a printed class timetable reduced to an illegible grid of colored blocks, a small round magnetic mirror reflecting a streak of window light, a taped index card of tiny scribbles forming no readable words, scraps of washi tape, a chewed pencil in a magnetic cup, and at center-right a single small circle drawn by hand in lilac marker, 3 centimeters wide, open at the upper right and slightly smudged, with the glossy sheen of fresh marker ink, flat soft light bouncing from the locker interior and the corridor windows, the burgundy paint scratched and chipped at the edges of the door, no people in frame, shallow depth of field with the far edge falling soft, slight focus falloff, subtle ISO noise, off-center placement of the circle, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:"people, hands, legible text, letters, numbers, logos, anime art, large drawings, graphic emblem, CGI look, excessive bloom, artificial bokeh",
+   express:"Soft bounced light on scratched burgundy paint and one smudged lilac circle, a small secret, hyperreal."},
+  {id:"E8", sec:"escena", estilo:"escena", nombre:"Cuarto de Noah · plano desde arriba con las cuatro paredes", tag:"Plano", tagc:"prota",
+   donde:"Vista cenital · paredes desplegadas alrededor del suelo", rol:"La hoja de arquitecto del cuarto: el suelo en el centro, las cuatro paredes abiertas alrededor y cada objeto en su sitio y con su medida.",
+   planos:"Referencia de todo el cuarto (18 a 28)", ref:"Adjunta las dos imágenes del cuarto (E3 atardecer y E4 noche) y usa «Copiar versión con imagen de referencia». Las medidas son estimaciones mías a partir de las fotos (4,0 x 4,5 m, techo de 2,5 m): si tienes las reales, cámbialas en el texto. Los números dentro del plano pueden salir mal escritos; no los uses para nada.", etFijo:"Orientación", fijo:"Norte = pared de la ventana y la cabecera de la cama. Este = escritorio y vitrina. Sur = puerta. Oeste = lado largo de la cama.",
+   dir:"No es un dibujo bonito, es una referencia de posiciones. Que cada objeto esté donde dice el texto y que las cuatro paredes se vean de frente. Si el modelo dibuja una perspectiva en vez de una vista cenital, repite pidiendo «orthographic, 90 degrees».",
+   refin:"Luz: iluminación pareja sin sombras. Ángulo: cenital exacto. Gesto: la puerta abierta a 90 grados.",
+   brief:"Concept: An architect development sheet of the bedroom, floor in the center and the four walls folded out around it, every object in place.\nTechnical: Orthographic top-down at 90 degrees, soft even light, realistic materials.\nMood: Clear, exact, neutral.",
+   prompt:"Create a clean, realistic architectural presentation sheet of a teenage bedroom. " + PLAN,
+   start:"Use the attached images as the exact reference of the same bedroom (one at sunset, one at night): same carpet, walls, bed, desk, chair, lamp, curtains, posters and glass case. Create a clean, realistic architectural presentation sheet of this room. " + PLAN,
+   negativo:"people, text other than the small numbers, labels in words, dimension numbers, extra furniture, ceiling, fisheye, perspective distortion, isometric perspective, cartoon or vector icon style, blueprint grid lines",
+   express:"Even soft light on dark navy carpet and a double bed seen from above, exact and neutral, hyperreal."},
+  {id:"O1", sec:"escena", estilo:"escena", nombre:"La ficha sobre negro", tag:"Objeto", tagc:"prota",
+   donde:"Macro · fondo negro", rol:"El plano firma: la ficha metálica tipo moneda de arcade, sola y centrada sobre negro. Cuelga de la mochila de Hiro con un clip pequeño.",
+   planos:"11, 15, 17, 18, 20, 21 y 28", etFijo:"Detalle de mundo", fijo:"El rombo blanco de esmalte con un punto cian en el centro: el mismo símbolo del pin de Hiro. No lleva ningún texto.",
+   dir:"La ficha debe parecer una pieza sin importancia hasta que se mira de cerca. El cian vive solo en el punto del rombo; el resto del metal es neutro.",
+   refin:"Luz: el cian crece hasta teñir un centímetro de metal. Ángulo: cenital exacto. Gesto: la ficha sobre su canto, a punto de caer.",
+   brief:"Concept: A small heavy arcade-style token alone on black, a white enamel diamond with one cyan dot, the first sign of the game.\nTechnical: Canon 100mm f/2.8 macro, tripod 25 cm above, one soft strip light raking from camera-left.\nMood: Small, ordinary, ominous.",
+   prompt:"cinematic camera package, Canon 100mm f/2.8 macro on a full-frame cinema body, " + CAM + ", extreme close-up of a single heavy metal arcade-style token lying flat on a pure black matte surface, centered, static tripod composition 25 centimeters above it, one small soft strip light from camera-left raking across the metal to reveal its worn edge and fine scratches, the token about 3 centimeters wide and 4 millimeters thick in dark pewter-silver with a raised rim and a slightly dulled brushed face, a white enamel diamond inlaid at its center with a small cyan dot at the center of the diamond, only the cyan dot emits a thin cyan glow that stains the nearby metal with a faint reflection, a tiny steel clip ring attached at the rim, no text or numbers anywhere, shallow depth of field with the far rim falling soft, black negative space around the token, slight focus falloff at the far edge, subtle ISO noise in the black, off-center crop weight toward the lower left, indie film realism, cinematic composition with layered depth, film response curve, horizontal 16:9, 1920x1080, " + TAIL,
+   negativo:NEG_OBJ,
+   express:"Thin cyan glow staining brushed pewter on pure black, small and ominous, hyperreal."},
+
+  V("V01", "01", 4, true, "Plano 01 · la mano que resbala", "Gancho: los dedos de Noah resbalan por el marco de la puerta y algo tira de él. «12 horas antes» se pone en el montaje.",
+    "Imagen nueva: la mano de Noah agarrada a un marco de puerta blanco, a oscuras, con borde de luz cian en los nudillos.",
+    mk(4, [WHO("NOAH")],
+      `one continuous take, real time. Darkness with a flickering cyan glow. NOAH's right hand fills the center of frame gripping a white-painted door frame at the left edge, knuckles 20 centimeters from the lens; his arm runs out of frame to the right where something pulls it. The take ends on the empty door frame.`,
+      `35mm film, fine grain, handheld, 84-degree wide intimate lens at 20 centimeters. Lighting lock: the only light is a flickering electric cyan glow from out of frame on the right, a hard cyan rim on the knuckles, everything else black. Cyan is the only colour.`,
+      `extreme close-up, hand and door frame, real time - the fingers whiten and clamp, the wrist is yanked toward frame right, the fingertips slide 8 centimeters along the paint with a squeal and lose their grip, the hand whips out of frame leaving the cyan-lit empty wood, a thread of paint dust drifting where it was -`,
+      `strained breathing, a muffled shout cut short, fingertips squeaking on paint, a rising electrical hum.`)),
+
+  V("V02", "02", 6, true, "Plano 02 · Hiro abre su taquilla", "Abre la película como si fuera el protagonista: de espaldas, abre su taquilla y saca un cuaderno. La ficha cuelga de la correa de la mochila.",
+    "Imagen nueva, la primera que hay que generar: Hiro de espaldas ante su taquilla, con la ficha clipada a la correa izquierda.",
+    mk(6, [WHO("HIRO")],
+      `one continuous take, real time. The locker bank seen from behind HIRO's right shoulder. HIRO stands at frame left-center 1.5 meters from the lens with his back to the camera, facing the third locker from the left, which is closed; the corridor with its tall windows is behind him on frame left, the double doors at the far end small on frame right. The take ends with the locker door fully open and HIRO taking a notebook out.`,
+      T_CAMPUS + ` Locked-off tripod at shoulder height 1.5 meters behind him, 47-degree natural lens, no camera movement.`,
+      `medium shot from behind, locked off, real time - HIRO's right thumb spins the combination dial in three quick turns, a click, he lifts the latch and pulls: the door swings open with a metallic clack and a rattle and covers the right third of the frame; his shoulders drop an inch as he looks into the locker, he reaches in and takes out a notebook, the backpack straps shifting on his shoulders, the small steel clip holding a round metal token on the left strap swinging and catching a flick of light -`,
+      `a combination dial clicking, a locker latch and a heavy metal clack, a backpack strap creaking, a distant corridor murmur, a metal clip ticking against the strap.`),
+    "Adjunta: ficha de Hiro + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor. Use image 1 (the character sheet of HIRO) for his face shape, black fringe, round glasses, charcoal hoodie and black backpack, and image 2 (the locker bank scene) for the corridor, lockers and light. HIRO stands with his back to the camera at frame left-center, 1.5 meters from the lens, close in front of the third locker from the left, which is closed; the camera is at shoulder height behind his right shoulder, 47-degree natural lens. A small round dark pewter metal token with a white diamond is clipped to the left backpack strap by a tiny steel clip. Warm hard mid-morning sun from tall windows on the left, fine film grain, natural fabric texture. No text, no logos, no other people.`),
+
+  V("V03", "03", 4, false, "Plano 03 · el guiño en la puerta", "Inserto del interior de la puerta: el foco recorre las cosas de Hiro y se queda en un ensō lila a rotulador.",
+    "E7 tal cual, sin cambios (no hace falta prompt de imagen de arranque).",
+    mk(4, [`No people in frame. Environment only.`],
+      `one continuous take, real time. Extreme close-up of the inside face of an open locker door, 50 centimeters from the lens, filling the frame: a timetable that is an illegible grid of colored blocks, a small round magnetic mirror, a taped index card of tiny scribbles forming no readable words, scraps of washi tape, and at center-right a single small circle drawn by hand in lilac marker, 3 centimeters wide, open at the upper right and slightly smudged.`,
+      `35mm film, fine grain, 47-degree lens, locked off with a 5-centimeter push-in, shallow depth of field. Lighting lock: flat soft light bouncing from the locker interior and the corridor windows; no cyan.`,
+      `extreme close-up, rack focus, real time - the focus rests on the magnetic mirror reflecting a streak of window light, slowly pulls across the clutter and settles on the lilac circle, the fresh marker ink holding a faint sheen; the shadow of a hand passes across the door and out of frame -`,
+      `the hollow ring of a metal locker interior, a distant corridor murmur, a faint breath out of frame.`),
+    "Adjunta: la imagen E7 como primer fotograma.",
+    ``),
+
+  V("V04", "04", 6, true, "Plano 04 · el timbre y el susto", "Suena el timbre. Hiro cierra la puerta de la taquilla y aparece Noah apoyado a su lado. «No te esperaba.»",
+    "Hiro en tres cuartos junto a su taquilla abierta; la puerta tapa el lado derecho; solo asoma la punta de una zapatilla blanca.",
+    mk(6, [WHO("HIRO", VOICE_H), WHO("NOAH")],
+      `one continuous take, real time. The locker bank seen from 3.5 meters, camera angled 30 degrees to the wall. HIRO stands at frame left-center in three-quarter view with his hand on the open door of his locker, the door swung out at frame center-right with its outer face to the camera and hiding the space behind it. NOAH leans against the lockers behind that door, hidden, arms crossed. At 1 second a school bell rings and keeps ringing to the end. The take ends with HIRO frozen against the open locker and NOAH 40 centimeters from him.`,
+      T_CAMPUS + ` Locked-off tripod at chest height, 47-degree natural lens, no camera movement.`,
+      `medium wide, locked off, real time - the bell rings, HIRO swings the heavy door shut with a metallic clack and the space behind it is revealed: NOAH leaning on the lockers with his arms crossed, 40 centimeters from him, watching him with a lazy half smile; HIRO jolts back a half step and his shoulder blades hit the next locker, his eyes wide behind the round glasses, and he says "No te esperaba." In the background students start to flow past toward their classes -`,
+      `a school bell ringing and continuing, a locker door slamming, a body bumping on metal, Hiro's startled breath, his line close and soft, the rising shuffle of a corridor emptying.`),
+    "Adjunta: ficha de Hiro + ficha de Noah + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor. Use image 1 (character sheet of HIRO) for his face, glasses, hoodie and backpack, image 2 (character sheet of NOAH, only the tip of his white leather sneaker is visible, the rest of him is hidden) and image 3 (the locker bank scene) for the corridor, lockers and light. The camera is at chest height 3.5 meters from the wall, angled 30 degrees to it, 47-degree natural lens. HIRO stands at frame left-center in three-quarter view with one hand on the open door of his locker; the open door swings out at frame center-right with its outer face toward the camera and hides the space behind it; only the tip of a clean white sneaker shows below the door. Warm hard mid-morning sun, fine film grain. No text, no logos.`),
+
+  V("V05", "05", 8, true, "Plano 05 · «¿qué pasa, friki?»", "Plano sobre el hombro de Hiro: Noah se despega de las taquillas y se burla; Bruno y Dereck ríen detrás.",
+    "Sobre el hombro de Hiro: Noah en el centro apoyado en las taquillas, Bruno y Dereck detrás a la derecha.",
+    mk(8, [WHO("NOAH", VOICE_E), WHO("HIRO"), WHO("BRUNO", VOICE_D), WHO("DERECK")],
+      `one continuous take, real time. Over-the-shoulder shot from behind HIRO. His shoulder and the back of his head fill frame left, soft and out of focus; NOAH stands at frame center 1 meter beyond, leaning with one shoulder on the lockers; BRUNO and DERECK stand a step behind him at frame right.`,
+      T_CAMPUS + ` Locked-off tripod at shoulder height, 29-degree medium portrait lens, shallow focus on NOAH, no camera movement.`,
+      `medium over-the-shoulder, locked off, real time - NOAH pushes off the lockers with his shoulder and takes one step in, tilts his head and says "¿Qué pasa, friki? ¿Ya estás con tus cositas de friki?"; he grins at his friends for approval; BRUNO throws his head back laughing and slaps DERECK's chest, DERECK bends double wheezing; HIRO's shoulder rises an inch and stays up, his head dipping; NOAH keeps his eyes on him and does not laugh -`,
+      `Noah's line close and dry, loud boys' laughter, a hand slapping a jacket, sneakers squeaking, a locker door dinging, the corridor murmur falling away under the laughter.`),
+    "Adjunta: fichas de Noah, Hiro, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic over-the-shoulder photograph in a real university corridor. Use image 1 (character sheet of NOAH), image 2 (HIRO, seen only from behind: shoulder and back of the head, soft focus, at frame left), image 3 (BRUNO), image 4 (DERECK) and image 5 (the locker bank scene). NOAH stands at frame center leaning with one shoulder on the burgundy lockers, BRUNO and DERECK a step behind him at frame right, all in the burgundy varsity jackets from the sheets. Camera at shoulder height, 29-degree short telephoto, shallow focus on NOAH, warm hard mid-morning sun from the left, fine film grain. No text, no logos.`),
+
+  V("V06", "06", 8, true, "Plano 06 · «deja al chico»", "Llega Sophia, le pone la mano en el brazo a Noah: «no te pases, deja al chico». Hiro: «no te preocupes, estoy bien», y se va.",
+    "Plano de conjunto: Hiro contra las taquillas a la izquierda, Noah al centro con Bruno y Dereck detrás y Sophia entrando por la derecha.",
+    mk(8, [WHO("SOPHIA", VOICE_S), WHO("HIRO", VOICE_H), WHO("NOAH")],
+      `one continuous take, real time. Medium wide of the locker bank from 4 meters, camera angled 30 degrees to the wall. HIRO is on frame left with his back against the lockers, NOAH at frame center 1 meter from him, BRUNO and DERECK a step behind NOAH, SOPHIA entering from frame right.`,
+      T_CAMPUS + ` Locked-off tripod at chest height, 47-degree natural lens, no camera movement.`,
+      `medium wide, locked off, real time - SOPHIA walks in from frame right with her cream tote on her shoulder, puts a hand on NOAH's forearm and says "Noah, no te pases. Deja al chico." NOAH rolls his eyes and lifts his hands in mock surrender; HIRO straightens off the lockers, adjusts the strap of his backpack and says "No te preocupes, estoy bien," looking at the floor, then turns and walks off to frame left; SOPHIA's eyes follow him -`,
+      `Sofia's sneaker steps, her voice firm and clear, a cloth sleeve rustle, Hiro's voice soft and flat, his steps leaving, the muffled laughter of the friends.`),
+    "Adjunta: fichas de Sophia (Soph.ia), Hiro, Noah, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor, medium wide, camera at chest height 4 meters from a bank of burgundy lockers and angled 30 degrees to it, 47-degree natural lens. Use image 1 (HIRO), image 2 (NOAH), image 3 (SOPHIA), image 4 (BRUNO), image 5 (DERECK) and image 6 (the locker bank scene): HIRO on frame left with his back against the lockers, NOAH at frame center 1 meter from him, BRUNO and DERECK a step behind NOAH, SOPHIA entering from frame right with her cream tote on one shoulder. Keep every face, hairstyle and outfit identical to the sheets. Warm hard mid-morning sun, fine film grain. No text, no logos.`),
+
+  V("V07", "07", 6, true, "Plano 07 · «Omae wa mou shindeiru» en susurro", "Hiro se aleja por el pasillo y murmura la frase (お前はもう死んでいる). Tono: áspero, dramático, amenazante, de meme. Primer plano de su cara, de frente.",
+    "Hiro caminando hacia la cámara por el pasillo, con la ficha colgando de la correa.",
+    mk(6, [WHO("HIRO", VOICE_H)],
+      `one continuous take, real time. The corridor, seen from the front. HIRO walks toward the camera from 6 meters away along the center of the corridor, hood down, backpack on both shoulders, the lockers on frame right and the tall windows on frame left; students pass in the background. The take ends with him 1.5 meters from the lens.`,
+      T_CAMPUS + ` Camera at chest height gliding backward at walking pace ahead of him, 29-degree medium portrait lens, focus locked on his face.`,
+      `medium close-up, camera gliding backward, real time - HIRO walks with his head level for the first time, jaw set, the fear gone from his eyes and replaced by a cold stillness; his lips move as he mutters under his breath in a low, rough, dramatic, threatening murmur with the deadpan weight of a meme, "Omae wa mou shindeiru," barely audible; the small token on his strap swings in time with his step and flashes a single flick of cyan; he does not blink -`,
+      `rubber soles on linoleum, a backpack strap creaking, a whispered line in Japanese, low, rough and menacing, a faint metallic tick of the token, the corridor murmur far behind.`),
+    "Adjunta: ficha de Hiro + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor. Use image 1 (character sheet of HIRO) and image 2 (the corridor and lockers scene). HIRO walks toward the camera along the center of the corridor, 3 meters from the lens, medium close-up at chest height, 29-degree short telephoto, head level, jaw set, eyes cold and steady, a small round dark pewter token clipped to the left backpack strap; lockers on frame right, tall windows on frame left, blurred students far behind. Warm hard mid-morning sun, fine film grain. No text, no logos.`),
+
+  V("V08", "08", 6, true, "Plano 08 · el grito", "Noah le grita desde lejos. Hiro se gira y responde gritando «Omae wa mou shindeiru» (お前はもう死んでいる), áspero, dramático, amenazante y de meme. Los tres se parten.",
+    "Plano desde detrás del grupo: Noah, Bruno y Dereck de espaldas en primer término y Hiro lejos en el pasillo.",
+    mk(6, [WHO("NOAH", VOICE_E), WHO("HIRO", VOICE_H), WHO("BRUNO", VOICE_D), WHO("DERECK")],
+      `one continuous take, real time. The corridor seen from behind the group. NOAH, BRUNO and DERECK stand in the foreground with their backs to the camera, 2 meters from the lens, NOAH at frame center, BRUNO on frame left, DERECK on frame right; HIRO is 8 meters beyond them in the center of the corridor, small, walking away.`,
+      T_CAMPUS + ` Locked-off tripod at chest height, 47-degree natural lens, deep focus with the group slightly soft.`,
+      `wide over the group, locked off, real time - NOAH shouts down the corridor "¿Qué te pasa, friki?"; HIRO stops, turns and, with his whole body, shouts back "Omae wa mou shindeiru!" in a rough, booming, dramatic and threatening voice, delivered like a meme announcement; a second of dead silence; then BRUNO and DERECK explode with laughter, BRUNO doubling over, DERECK grabbing NOAH's jacket, NOAH's shoulders shaking as he starts walking toward HIRO -`,
+      `Noah's shout echoing in the corridor, Hiro's shout low, rough and booming like a dramatic announcement, a short silence, two boys laughing loudly, rubber soles starting to walk.`),
+    "Adjunta: fichas de Noah, Bruno, Dereck y Hiro + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph of a long university corridor seen from behind a group of three. Use image 1 (NOAH), image 2 (BRUNO), image 3 (DERECK), image 4 (HIRO) and image 5 (the corridor and lockers scene). NOAH, BRUNO and DERECK stand in the foreground with their backs to the camera 2 meters from the lens in their burgundy varsity jackets, NOAH at the center; HIRO is 8 meters beyond them in the center of the corridor, small, walking away. Camera at chest height, 47-degree natural lens, deep focus. Warm hard mid-morning sun, fine film grain. No text, no logos.`),
+
+  V("V09", "09", 8, true, "Plano 09 · el golpe contra las taquillas", "«Anda, ven para aquí». Noah lo agarra y lo estampa contra las taquillas de un barrido lateral. «No sé qué habrás dicho, pero tu padre, por si acaso.»",
+    "Noah caminando hacia la cámara con Hiro parado a 3 metros delante, mirándolo.",
+    mk(8, [WHO("NOAH", VOICE_E), WHO("HIRO", VOICE_H)],
+      `one continuous take, real time with a fast lateral whip. The corridor seen from the front at 5 meters, lockers on frame right. HIRO stands at frame center 3 meters from the camera, facing NOAH, who walks in from the background on frame left. The take ends with HIRO pinned against the lockers at frame right and NOAH's back to the camera.`,
+      T_CAMPUS + ` Locked-off tripod at chest height, 47-degree natural lens, then a fast lateral whip pan to the right on the impact.`,
+      `medium, locked off then whip pan, real time - NOAH strides up and says "Anda, ven para aquí." and grabs HIRO by the chest of the hoodie with both fists, spins him and drives him into the lockers; the camera whips hard to the right onto the impact: HIRO's back hits the metal with a boom, the locker doors rattle, his glasses jump, the small steel clip on his strap snaps and the token drops out of frame; NOAH leans in, one forearm across his chest, and says "No sé qué habrás dicho, pero tu padre, por si acaso." -`,
+      `heavy strides, cloth bunching in fists, a locker bank booming, doors rattling, a metal clip snapping, Noah's voice low and close, Hiro's gasp.`),
+    "Adjunta: fichas de Noah y Hiro + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor seen from the front at 5 meters, lockers along the right wall. Use image 1 (HIRO), image 2 (NOAH) and image 3 (the corridor and lockers scene). HIRO stands at frame center 3 meters from the camera, facing left toward NOAH, who is mid-stride in the background on frame left walking toward him with a hard stare. Camera at chest height, 47-degree natural lens. Warm hard mid-morning sun from the left, fine film grain, natural skin and fabric texture. No text, no logos.`),
+
+  V("V10", "10", 6, true, "Plano 10 · la caída vista desde el suelo", "Noah lo tira al suelo. La cámara está a ras de suelo, a la altura de la cabeza de Hiro, con los matones desenfocados encima. «Venga, friki, hasta luego.»",
+    "A ras de suelo, sin Hiro todavía: pasillo y tres siluetas desenfocadas (Noah, Bruno, Dereck) de pie al fondo.",
+    mk(6, [WHO("NOAH", VOICE_E), WHO("HIRO"), WHO("BRUNO"), WHO("DERECK")],
+      `one continuous take, real time. Camera on the corridor floor at the spot where HIRO's head will land, 10 centimeters above the linoleum, looking along the floor toward the group. NOAH stands at frame center 2.5 meters away, BRUNO on frame left and DERECK on frame right, all three tall and completely out of focus above the lens line; the empty floor lies in front. HIRO is thrown into frame from above at frame left.`,
+      T_CAMPUS + ` Locked-off camera on the floor, 29-degree short telephoto lens with a very shallow focal plane on the foreground floor, no camera movement, the horizon low.`,
+      `extreme low angle, locked off, real time - HIRO's body drops into frame from above, shoulder and hip hitting the linoleum with a slap, his head landing 50 centimeters from the lens turned toward it, his glasses skidding half off; the focus snaps to his face, eyes screwed shut then open, breath fogging nothing; behind him the three bullies stay soft and huge; NOAH's blurred head tilts down and he says "Venga, friki, hasta luego." BRUNO laughs -`,
+      `a body hitting linoleum, a backpack thudding, glasses sliding on the floor, a sharp inhale, Noah's voice from above and slightly distant, a boy's laugh.`),
+    "Adjunta: fichas de Noah, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph taken from the floor of a university corridor, the camera 10 centimeters above the linoleum looking along the floor, 29-degree short telephoto with a very shallow focal plane on the foreground floor. Use image 1 (NOAH), image 2 (BRUNO), image 3 (DERECK) and image 4 (the corridor scene). The three stand 2.5 meters away, tall and completely out of focus in their burgundy varsity jackets, NOAH at the center; the foreground floor is empty and sharp. Warm hard mid-morning sun, fine film grain. No text, no logos.`),
+
+  V("V11", "11", 4, true, "Plano 11 · la ficha rueda", "La ficha rueda por el suelo, gira y se queda quieta; el punto cian late una vez.",
+    "Macro a ras de suelo con zapatillas desenfocadas y la ficha entrando por la izquierda.",
+    mk(4, [`TOKEN - a small heavy dark pewter metal arcade token about 3 centimeters wide with a raised rim, a white enamel diamond inlaid at its center and a small cyan dot at the center of the diamond. Prop only.`],
+      `one continuous take, real time. Floor level in the corridor, 5 centimeters above the polished linoleum, scuffed sneakers soft and out of focus in the background. The token rolls into frame from frame left on its rim and comes to rest at frame center 20 centimeters from the lens.`,
+      `35mm film, fine grain, 47-degree lens, shallow focus on the token, locked off. Lighting lock: hard warm sun from the left raking across the floor. The cyan dot is the only cyan in the frame.`,
+      `extreme close-up at floor level, real time - the token rolls on its rim, wobbles, its spin quickening into a metallic whir, drops flat and rings; the cyan dot at the center of the white diamond pulses once and stains the brushed metal around it, then fades; behind it a blurred sneaker steps away -`,
+      `a coin rolling on linoleum, a metallic whir rising, a final ring, one faint electrical note, distant laughter.`),
+    "Adjunta: la ficha sobre negro (O1) y la zona de taquillas (E6).",
+    `Create a 16:9 extreme close-up photograph at floor level in a university corridor, the camera 5 centimeters above the polished linoleum, 47-degree lens, shallow depth of field. Use image 1 (the token on black) for the token and image 2 (the corridor scene) for the floor and light. The small dark pewter token with its white enamel diamond and cyan dot lies at frame center 20 centimeters from the lens, in sharp focus; scuffed sneakers soft and out of focus behind it. Warm hard sun raking from the left, fine film grain. No text.`),
+
+  V("V12", "12", 6, true, "Plano 12 · Hiro huye", "Hiro se levanta y corre hacia las puertas del fondo. Los matones se ríen en primer término.",
+    "Plano desde detrás de los matones: Hiro levantándose a 12 metros y las puertas dobles al fondo.",
+    mk(6, [WHO("HIRO"), WHO("NOAH"), WHO("BRUNO"), WHO("DERECK")],
+      `one continuous take, real time. The corridor seen from behind the group, camera at chest height 3 meters behind them. NOAH, BRUNO and DERECK stand in the foreground with their backs to the camera, NOAH at frame center; HIRO is 12 meters beyond them, getting to his feet; the double doors with frosted glass are at the far end, 18 meters away.`,
+      T_CAMPUS + ` Locked-off tripod at chest height, 47-degree natural lens, deep focus.`,
+      `wide over the group, locked off, real time - HIRO scrambles up from the floor, grabs his glasses, and sprints down the corridor toward the doors, his backpack slamming against his back, his steps slapping on the linoleum; he hits the double doors with both hands and they swing wide and flap shut behind him; in the foreground BRUNO and DERECK laugh and shove each other, NOAH with his hands on his hips watching him go -`,
+      `sneakers slapping at speed, a backpack thudding, a panic-hard breath far away, double doors banging, boys laughing, the corridor echoing.`),
+    "Adjunta: fichas de Hiro, Noah, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph of a long university corridor seen from behind a group of three. Use image 1 (NOAH), image 2 (BRUNO), image 3 (DERECK), image 4 (HIRO) and image 5 (the corridor scene). NOAH, BRUNO and DERECK stand in the foreground with their backs to the camera 3 meters from the lens, NOAH at the center; HIRO is 12 meters beyond them in the corridor, in motion, running toward a pair of frosted-glass double doors at the far end 18 meters away. Camera at chest height, 47-degree natural lens, deep focus. Warm hard mid-morning sun, fine film grain. No text.`),
+
+  V("V13", "13", 8, true, "Plano 13 · «te has pasado»", "Sophia le reprocha; Noah responde que a los frikis hay que enseñarles su sitio. Bruno ríe.",
+    "Plano medio de Sophia, Noah, Bruno y Dereck frente a las taquillas.",
+    mk(8, [WHO("SOPHIA", VOICE_S), WHO("NOAH", VOICE_E), WHO("BRUNO", VOICE_D), WHO("DERECK")],
+      `one continuous take, real time. Medium two-shot at the locker bank, camera at chest height 3 meters away, lockers behind them. SOPHIA stands on frame left with her arms crossed and her tote on one shoulder, NOAH at frame center-right facing her, BRUNO and DERECK a step behind him on frame right.`,
+      T_CAMPUS + ` Locked-off tripod, 47-degree natural lens, no camera movement.`,
+      `medium two-shot, locked off, real time - SOPHIA, arms crossed, says "Te has pasado." NOAH shrugs one shoulder and half smiles, still pleased with himself, "A los frikis hay que darles su merecido. Hay que enseñarles cuál es su lugar." BRUNO laughs behind him and nods; SOPHIA's jaw sets, her eyes cooling a degree, the tote strap tightening in her hand -`,
+      `her voice clear and clipped, his easy and dismissive, a boy's laugh, a tote strap creaking, the school corridor quieting as the last students leave.`),
+    "Adjunta: fichas de Sophia (Soph.ia), Noah, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor, medium two-shot at a bank of burgundy lockers, camera at chest height 3 meters away, 47-degree natural lens. Use image 1 (SOPHIA), image 2 (NOAH), image 3 (BRUNO), image 4 (DERECK) and image 5 (the locker bank scene): SOPHIA on frame left with her arms crossed and her cream tote on one shoulder, NOAH at frame center-right facing her with a smug half smile, BRUNO and DERECK a step behind him on frame right. Warm hard mid-morning sun from the left, fine film grain. No text.`),
+
+  V("V14", "14", 8, true, "Plano 14 · «venga, vamos a clases»", "Sophia lo desaprueba con la mirada, dice «venga, vamos a clases» y se va con Bruno y Dereck. Noah se queda mirando atrás.",
+    "Primer plano de Sophia a la izquierda, con Noah desenfocado a la derecha.",
+    mk(8, [WHO("SOPHIA", VOICE_S), WHO("NOAH"), WHO("BRUNO"), WHO("DERECK")],
+      `one continuous take, real time. Medium close-up, camera at chest height 2 meters away, lockers behind. SOPHIA is on frame left in focus; NOAH stands at frame right, slightly soft; BRUNO and DERECK are behind him, small. The take ends with NOAH alone at frame center and the other three walking away down the corridor.`,
+      T_CAMPUS + ` Locked-off tripod, 29-degree medium portrait lens, rack focus from SOPHIA to NOAH at the 5-second mark.`,
+      `medium close-up, locked off, rack focus - SOPHIA looks at NOAH for one long second, a slow shake of the head, and says "Venga, vamos a clases." She turns and walks away down the corridor with BRUNO and DERECK falling in behind her; focus pulls to NOAH who stays at frame center and turns his head to look back down the corridor toward where HIRO was thrown down, the smile gone, his eyes dropping to the floor -`,
+      `her voice flat and final, three pairs of sneakers leaving, a school corridor going quiet, the faint lingering tone of the bell, his breath.`),
+    "Adjunta: fichas de Sophia (Soph.ia), Noah, Bruno y Dereck + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in a real university corridor, medium close-up at chest height 2 meters away, 29-degree short telephoto. Use image 1 (SOPHIA), image 2 (NOAH), image 3 (BRUNO), image 4 (DERECK) and image 5 (the locker bank scene). SOPHIA is on frame left in sharp focus, looking at NOAH with cool disapproval; NOAH stands at frame right, slightly soft, his smile fading; BRUNO and DERECK stand small behind him. Warm hard mid-morning sun from the left, fine film grain. No text.`),
+
+  V("V15", "15", 6, false, "Plano 15 · la ficha en el bolsillo", "Noah vuelve sobre sus pasos, se agacha, recoge la ficha, el punto cian late y se la guarda en el bolsillo.",
+    "Noah de pie sobre la ficha tirada en el suelo, a 1 metro de la cámara.",
+    mk(6, [WHO("NOAH"), `TOKEN - a small heavy dark pewter metal arcade token about 3 centimeters wide with a raised rim, a white enamel diamond inlaid at its center and a small cyan dot at the center of the diamond. Prop only.`],
+      `one continuous take, real time. The empty corridor, camera at chest height 3 meters from NOAH, who walks into frame from frame left and stops at frame center, 1 meter from the lens, with the token lying on the polished linoleum at his feet.`,
+      T_CAMPUS + ` Locked-off tripod, 29-degree medium portrait lens, a slow push-in of 40 centimeters ending on his hand, focus pull from his face to the token. The cyan dot is the only cyan in the frame.`,
+      `medium shot pushing to close-up, real time - NOAH stops, looks down and crouches, picking the token up between two fingers; he turns it in the light, eyes narrowing; the cyan dot pulses once against the warm sun and he frowns; he closes his fist around it, straightens, and slides it into the pocket of his burgundy jacket, patting the pocket twice before he walks out of frame -`,
+      `sneakers squeaking as he crouches, a small metal clink, one faint high electrical note, cloth on cloth, a pocket pat, the empty corridor tone.`),
+    "Adjunta: ficha de Noah + la ficha sobre negro (O1) + zona de taquillas (E6).",
+    `Create a 16:9 cinematic photograph in an empty university corridor, camera at chest height 3 meters from the subject, 29-degree short telephoto. Use image 1 (NOAH), image 2 (the token on black) and image 3 (the locker bank scene). NOAH stands at frame center 1 meter from the lens in his burgundy varsity jacket, looking down at the small dark pewter token with a white enamel diamond and a cyan dot lying on the polished linoleum at his feet, in sharp focus. Warm hard mid-morning sun, fine film grain. No text.`),
+
+  V("V16", "16", 6, true, "Plano 16 · «ya estoy en casa»", "Noah entra en una casa enorme y vacía, tira las llaves y nadie contesta.",
+    "E2 tal cual (recibidor vacío); Noah entra por detrás de la cámara, no hace falta que salga en la imagen.",
+    mk(6, [WHO("NOAH", VOICE_E)],
+      `one continuous take, real time. The entrance hall seen from just inside the front door. NOAH enters from behind the camera, passes within 1 meter of the lens on frame left, tosses his keys into the ceramic bowl on the console table at frame left, and walks toward the staircase at the center of frame, stopping 3 meters from the lens with his back to the camera.`,
+      T_CASA + ` Locked-off tripod at eye height, 47-degree natural lens, a 10-centimeter push-in across the take.`,
+      `wide, locked off, real time - keys clink into the bowl, NOAH's jacket swings, his sneakers squeak on the stone and stop; his shoulders drop an inch as the quiet answers him; he calls up the stairs without turning, "Ya estoy en casa." No answer: the lamp on the landing hums, his head tilts up toward it, his hand loosening on his jacket zip -`,
+      `the front door closing behind the camera, keys in ceramic, sneaker squeaks, the long hush of a large house, the lamp's faint electrical hum, his voice swallowed by the stairwell.`)),
+
+  V("V17", "17", 8, false, "Plano 17 · la ficha en la mano", "Se quita la chaqueta, mete la mano en el bolsillo y saca la ficha; primer plano del símbolo.",
+    "E2 con Noah al pie de la escalera, a 2 metros de cámara, quitándose la chaqueta.",
+    mk(8, [WHO("NOAH"), `TOKEN - a small heavy dark pewter metal arcade token about 3 centimeters wide with a raised rim, a white enamel diamond inlaid at its center and a small cyan dot at the center of the diamond. Prop only.`],
+      `one continuous take, real time. The foot of the staircase. NOAH stands at the center of frame 2 meters from the lens facing frame left, pulling his burgundy jacket off one shoulder; pale oak stairs behind him and a warm lamp far at the back.`,
+      T_CASA + ` 29-degree medium portrait lens at chest height, a slow push-in of 60 centimeters that ends on his hand, focus pull from his face to his palm. The cyan dot on the token is the only cyan in the frame.`,
+      `medium shot pushing to extreme close-up, real time - he drags the jacket off, shifts it to his left arm, and his right hand slips into the pocket and stops; a frown crosses his forehead; the hand comes out holding the token and opens in the foreground, the white diamond with its cyan dot filling the lower half of frame, the dot pulsing once against the cold blue light, his thumb brushing the metal rim -`,
+      `heavy cloth sliding off a shoulder, a zip pull, a small metal clink between fingers, one faint high electrical note, the house tone.`)),
+
+  V("V18", "18", 8, false, "Plano 18 · enciende el ordenador", "En su cuarto, al atardecer: entra, tira la chaqueta, deja la ficha junto al teclado, se sienta y enciende el monitor.",
+    "E3 tal cual (el cuarto vacío al atardecer, desde la puerta). Noah entra durante el clip.",
+    mk(8, [WHO("NOAH"), `TOKEN - a small heavy dark pewter metal arcade token about 3 centimeters wide with a raised rim, a white enamel diamond inlaid at its center and a small cyan dot at the center of the diamond. Prop only.`],
+      `one continuous take, real time. The bedroom at sunset seen from just inside the open doorway at chest height, a door frame at the left edge and the open door panel at the right edge of the frame; the desk on frame right with the black leather chair beside it, the navy double bed on frame left, the window with cream curtains and the low orange sun on the far wall. NOAH enters from behind the camera, passes within 1 meter of the lens on frame right, walks to the desk and sits in the chair, turned three-quarters toward the monitor, his back mostly to the camera. The take ends with the monitor lighting the right side of his face.`,
+      T_DUSK + ` Locked-off tripod at chest height, 47-degree natural lens. When the monitor turns on, a cold blue-white light replaces the key on the right side of his face.`,
+      `medium wide, locked off, real time - NOAH walks in wearing a white t-shirt and jeans, throws his burgundy jacket onto the bed, sets the token down next to the keyboard with a small metal clink without looking at it, falls into the chair until it creaks, reaches out to the monitor's power button; the screen blooms on and floods the right side of his face with cold blue-white light while the sunset still rims the back of his head; his eyes tick left to right as the screen loads -`,
+      `footsteps on carpet, a jacket landing on a duvet, a small metal clink, a chair creak, a power button click, a start-up chime, the PC fan spinning up, distant street.`),
+    "Adjunta: E3 tal cual. No hace falta imagen de Noah: entra durante el clip.",
+    ``),
+
+  V("V19", "19", 8, false, "Plano 19 · la búsqueda", "Teclea y busca; por la ventana la luz pasa de atardecer a noche. En pantalla, «0 resultados» en el montaje.",
+    "E3 con Noah sentado al escritorio, visto de espaldas y de tres cuartos, mirando el monitor.",
+    mk(8, [WHO("NOAH")],
+      `one continuous take, with time passing in the light. The same view from the doorway: NOAH sits at the desk on frame right in the black leather chair, seen from behind and slightly from the left, facing the monitor on the desk at the right edge of the frame; the window on the far wall shows the sky; the navy bed on frame left.`,
+      T_DUSK + ` Locked-off tripod at chest height, 47-degree natural lens. Across the take the light through the window cools from orange to violet to dark blue and the monitor becomes the strongest light.`,
+      `medium wide, locked off - he types and scrolls, his shoulders working, his head tilting as his eyes scan; the orange light in the window fades up the wall, cools to violet and then to deep blue street light while he searches, the monitor's cold glow taking over the right side of his face and arm; he leans in, clicks, leans back, finds nothing; at 6 seconds he reaches out and switches on the black gooseneck desk lamp, which pools warm amber light on the desk -`,
+      `typing, mouse wheel ticks, the PC fan, a car passing outside, the click of the lamp switch, the room tone deepening.`),
+    "Adjunta: E3 y la hoja de Noah.",
+    `Image 1 is the bedroom at sunset seen from the doorway. Image 2 is the character sheet of NOAH. Edit image 1: add NOAH sitting in the black leather office chair at the desk on the right, seen from behind and slightly from the left, facing the monitor, leaning slightly toward the screen with one hand on the mouse; white crew-neck t-shirt, light-wash jeans, no jacket, his burgundy varsity jacket lying on the bed. Keep his hair and build identical to the sheet. Keep the sunset lighting, with a cold blue-white glow from the monitor on the right side of his face and arm. Keep everything else exactly as it is. Do not add or remove any other object. No text.`),
+
+  V("V20", "20", 8, true, "Plano 20 · «si es que soy un friki»", "Se echa atrás en la silla y se ríe de sí mismo. Plano de prueba.",
+    "E5 con Noah sentado frontal, de noche; la ficha en la esquina izquierda del escritorio, apenas visible.",
+    mk(8, [WHO("NOAH", VOICE_E), `TOKEN - a small dark pewter metal arcade token lying flat at the left edge of the desk, 10 centimeters from the keyboard, dull and ordinary. Prop only.`],
+      `one continuous take, real time. Night, NOAH's bedroom. He sits alone at his desk, centered in frame, chest 40 centimeters from the desk edge, body and eyes facing the monitor, which is just below the lens and out of frame. Behind him, 2.5 meters back, the navy double bed lies along the back wall under three sports posters, with the window and its cold blue curtains at the right edge of the frame. He has searched for an hour and found nothing. The room stays intact and the light stays constant. The take ends with him looking away to frame right, bored, the token untouched.`,
+      `35mm film, fine grain, 29-degree medium portrait lens, shallow focus on his eyes, natural skin texture with pores. Camera locked off just above the monitor with a 10-centimeter push-in across the take. Lighting lock: the monitor is the key, cold blue, from below and in front; one weak warm desk lamp from camera right behind him as a rim on his jaw; no fill, no beauty light, the far wall falls to black. Everything has weight: the chair flexes and creaks when he leans.`,
+      `medium close-up, centered, real time - his right hand works the mouse, eyes scanning left to right in small jumps, blinking rarely, jaw set; the scrolling stops, his hand leaves the mouse and hangs in the air; he breathes out through his nose, a half laugh, drops back until the chair creaks, laces both hands behind his head and looks up at the ceiling, grinning at his own stupidity. He says to nobody, "¿Pero qué hago yo buscando esto? Si es que soy un friki." He shakes his head once, the grin fading into a yawn, and his eyes drift off to frame right, away from the desk, in a slow relaxed blink -`,
+      `computer fan, mouse wheel ticks that stop, one breath through the nose, an office chair creak, his voice close and dry in a small room, distant traffic through a closed window.`)),
+
+  V("V21", "21", 8, false, "Plano 21 · el brillo", "La ficha se enciende en cian; la luz se arrastra por la mesa como un líquido y sube al monitor. Noah mira hacia otro lado.",
+    "Macro del escritorio de madera oscura con la ficha (O1) a la izquierda del teclado; Noah desenfocado al fondo a la derecha.",
+    mk(8, [WHO("NOAH"), `TOKEN - a small heavy dark pewter metal arcade token about 3 centimeters wide with a raised rim, a white enamel diamond inlaid at its center and a small cyan dot at the center of the diamond. Prop only.`],
+      `one continuous take, real time then slow motion on the cyan. Night, the desk seen at desk level. The token lies at the left edge of frame 10 centimeters from the keyboard; the monitor stands at frame center-right showing a plain pale page; NOAH sits out of focus in the background on frame right, face turned toward the window and away from the desk.`,
+      T_NIGHT + ` Close macro-like framing at desk level, 29-degree lens, a slow push-in of 15 centimeters. Cyan is the only saturated colour: electric cyan with a white core and coarse square pixel edges.`,
+      `close-up at desk level pushing in - the token lies still; the cyan dot ignites, a thread of liquid cyan light spreads across the wood grain like water finding cracks, crawls up the keyboard cable and enters the base of the monitor; the monitor's cold white turns cyan; in the blurred background NOAH looks toward the window and does not see it -`,
+      `a rising electrical hum, a faint liquid crackle on wood, the PC fan, distant 8-bit tones very far away, his slow breathing.`)),
+
+  V("V22", "22", 6, false, "Plano 22 · la pregunta", "Primer plano de su cara iluminada en cian; se gira hacia la pantalla y lee. El texto («¿Cansado de tu vida?…») se pone en el montaje.",
+    "Primer plano de Noah de noche con la cara iluminada en cian por una luz fuera de plano.",
+    mk(6, [WHO("NOAH")],
+      `one continuous take, real time. NOAH's face fills the frame, 60 centimeters from the lens, lit by a cyan glow from out of frame on the left. He starts with his head turned to the right, away from the glow.`,
+      T_NIGHT + ` 18-degree tight emotional close-up lens, slow push-in of 10 centimeters, shallow focus on his eyes. Lighting lock: the cyan glow is the key and the warm lamp only rims his hair; no frontal fill.`,
+      `close-up, slow push-in - his face lit by the cyan, the pupils contracting, he turns his head toward the glow in a slow quarter turn, eyes reading line after line before the head finishes turning, the brow lowering; flickers of cyan cross his cheek like scan lines -`,
+      `a single high note like a message arriving, the electrical hum, his breath through the nose, the PC fan.`)),
+
+  V("V23", "23", 8, true, "Plano 23 · «no la cambiaría por nada»", "Resopla, contesta y apaga el ordenador con el botón. La habitación se queda con el flexo.",
+    "Noah en plano medio, de noche, con luz cian en la cara; lámpara de escritorio encendida detrás.",
+    mk(8, [WHO("NOAH", VOICE_E)],
+      `one continuous take, real time. NOAH sits at the desk centered in frame, 1.2 meters from the lens, facing the screen, the cyan glow on his face. The desk lamp is lit behind him on frame right. The take ends with the room lit only by the lamp and him standing.`,
+      T_NIGHT + ` 29-degree medium portrait lens, handheld with a very subtle drift. Lighting lock: cyan key from the screen collapsing to nothing, the warm lamp remains as the only source afterwards.`,
+      `medium close-up, handheld - he exhales through the nose, shakes his head, and says "Nah. No la cambiaría por nada del mundo." His hand moves out of frame to the monitor power button and holds it: the cyan collapses to a white dot and dies; the room falls to the desk lamp alone, warm amber on his chin; he rolls his shoulders and stands, the chair rolling back until it stops -`,
+      `a button click, the electrical hum collapsing into silence, the PC fan winding down, his voice close and dry, chair wheels on wood.`)),
+
+  V("V24", "24", 8, true, "Plano 24 · el monitor se enciende solo", "Camina de espaldas hacia la puerta; detrás de la cámara el monitor se enciende solo, su sombra se alarga hacia la puerta y se queda inmóvil.",
+    "E5 (la imagen definitiva del contraplano) con Noah caminando de espaldas hacia la puerta, a unos 4 metros.",
+    mk(8, [WHO("NOAH")],
+      `one continuous take, real time. The bedroom at night seen from the desk side, camera at monitor height looking west across the room: the black leather chair in the right foreground, empty, turned toward the camera; the navy double bed along the back wall under three sports posters; the open doorway to a dark hallway at the back left, 5 meters from the lens. NOAH walks away from the camera across the carpet toward the doorway, his back to the lens, passing left of the chair. At 4 seconds the monitor behind the camera turns on by itself. The take ends with him frozen mid-step 2 meters from the doorway.`,
+      T_NIGHT + ` Locked-off tripod at monitor height, 47-degree natural lens, a focus pull from his back to the room and back. When the monitor wakes behind the camera, electric cyan floods the room and throws his shadow far ahead of him across the carpet toward the doorway.`,
+      `wide, locked off - he walks away from the lens, his shoes silent on the carpet; behind the camera the monitor flares cyan without a sound; the cyan floods the room, the leather of the chair flashing wet and blue, and his long shadow races ahead of him across the carpet to the doorway; his stride cuts mid-step with the heel hovering, his shoulders tensing; he does not turn; the cyan climbs the bed and the posters -`,
+      `footsteps muffled by carpet, a deep electrical surge arriving behind the camera, a faint pop from the screen, a cut-off breath, the room tone dropping out.`),
+    "Adjunta: E5 (la imagen definitiva) y la hoja de Noah.",
+    `Image 1 is the bedroom at night. Image 2 is the character sheet of NOAH. Edit image 1: add NOAH walking away from the camera across the carpet toward the open doorway at the back left, seen from behind and 4 meters from the camera, mid-stride, passing to the left of the chair, which stays empty; white crew-neck t-shirt, light-wash jeans, no jacket. Keep his hair and build identical to the sheet. Keep everything else exactly as it is, including the cold blue lighting. Do not add or remove any other object. No text.`),
+
+  V("V25", "25", 6, false, "Plano 25 · «no era una pregunta»", "Se gira despacio con el horizonte torcido, mirando a la pantalla (la cámara). La frase («En realidad no era una pregunta, Noah.») se pone en el montaje.",
+    "Primer plano de Noah de noche, girando la cabeza hacia la cámara, con luz cian en la cara. No necesita el cuarto.",
+    mk(6, [WHO("NOAH")],
+      `one continuous take, real time. Close on NOAH's face and shoulder, 70 centimeters from the lens, his back half turned to the camera and his head beginning to turn over his shoulder toward the lens, which is the screen; behind him only the dark room and a faint pale doorway.`,
+      T_NIGHT + ` 18-degree tight close-up, slow push-in of 15 centimeters, horizon tilted 8 degrees. Lighting lock: electric cyan from the lens side as the key on his cheek and eyes, the room behind him falling to black.`,
+      `close-up, slow push-in, horizon tilted - he turns his head over his shoulder and then his shoulders, eyes reaching the screen before the head; the cyan edges his cheek and fills his pupils; his chest rises and the mouth parts; no words -`,
+      `his held breath, the electrical hum swelling, a faint creak of the floor.`),
+    "Adjunta: la hoja de Noah. No necesita el cuarto.",
+    `Create a 16:9 cinematic close-up photograph of NOAH from the character sheet attached, 70 centimeters from the camera, his back half turned to the camera and his head turning over his shoulder toward the lens, eyes wide and wary; white crew-neck t-shirt and the thin silver chain; the horizon tilted 8 degrees; a hard electric cyan light from the lens side on his cheek and eyes; behind him only the dark room falling to black, with a faint pale doorway out of focus. Keep his face and hair identical to the sheet. Fine film grain, natural skin texture. No text.`),
+
+  V("V26", "26", 8, true, "Plano 26 · la luz lo agarra", "Un chorro de luz cian sale de detrás de la cámara (el monitor), lo agarra por la cintura y lo tira hacia la lente; se sujeta al marco de la puerta. Plano de prueba.",
+    "E5 con Noah de pie junto al marco de la puerta del fondo, de medio lado, mirando hacia la cámara con miedo y una mano en el marco.",
+    mk(8, [WHO("NOAH", VOICE_E), `LIGHT - a rope of liquid light as thick as a forearm, electric cyan with a white core, its edges breaking into coarse square pixels, erupting from beside the camera and crossing the room. Creature appearance only.`],
+      `one continuous take, real time. Night, NOAH's bedroom seen from the desk side, camera at monitor height looking west across the room; the black leather chair in the right foreground; the navy double bed along the back wall at center-right; the open doorway to the dark hallway at the back left, 5 meters from the lens. NOAH stands 1 meter in front of the doorway, his body half turned, his face in profile looking over his shoulder at the lens. The take ends with NOAH stretched horizontal toward the lens between the door frame and the camera, still holding on.`,
+      `35mm film, fine grain, 107-degree wide environmental lens, handheld at monitor height, horizon tilted 8 degrees. Lighting lock: the light comes from behind the camera, so NOAH is lit from the front by hard electric cyan with a white core and his shadow is thrown behind him onto the wall and the doorway; no beauty fill. Cyan is the only saturated colour. Physics lock: he weighs 90 kilos, his trainers drag and squeak before they leave the floor, cloth and hair lag behind his body.`,
+      `wide, real time - he takes one step back toward the doorway, eyes locked on the lens, his right hand reaching behind him for the door frame; the rope of light erupts from beside the lens, crosses the room in a blink and coils twice around his waist; it yanks toward the camera: his trainers skid, his body folds at the hips, his feet leave the floor and he is pulled horizontal at waist height toward the lens, twisting; both hands slam onto the door frame behind him, knuckles whitening, fingertips sliding 5 centimeters along the painted wood; posters and papers fly past him toward the lens; he screams "¡No, no, no!", while the light behind the camera becomes a white glare that swallows everything that reaches it -`,
+      `a deep electrical surge, trainers squealing on carpet, fabric snapping tight, two palms slapping wood, fingernails scraping paint, paper tearing, a chair hitting the floor, wind rushing toward the lens, his voice breaking on the third "no".`),
+    "Adjunta: E5 (la imagen definitiva) y la hoja de Noah.",
+    `Image 1 is the bedroom at night. Image 2 is the character sheet of NOAH. Edit image 1: add NOAH standing in the open doorway at the back left, 5 meters from the camera, his body half turned and his face in profile looking back over his shoulder at the camera with fear, his right hand on the white door frame behind him; white crew-neck t-shirt, light-wash jeans, no jacket; keep his face, hair and build identical to the sheet. A hard electric cyan light comes from the camera side and lights his front, throwing his shadow onto the door and the wall behind him. The chair stays empty. Keep everything else exactly as it is. Do not add or remove any other object. No text.`),
+
+  V("V27", "27", 8, true, "Plano 27 · se lo traga", "Se le sueltan los dedos, lo arrastran por la moqueta, se agarra a la pata de la cama; la cama se mueve y entra en la pantalla (la cámara). Blanco total.",
+    "Plano a ras de moqueta mirando hacia la puerta, con la pata de madera de la cama a la derecha y Noah en el suelo junto al marco.",
+    mk(8, [WHO("NOAH", VOICE_E), `LIGHT - a rope of liquid light as thick as a forearm, electric cyan with a white core, its edges breaking into coarse square pixels. Creature appearance only.`],
+      `one continuous take, real time then a white-out. Night, the bedroom at carpet height, the camera 20 centimeters above the carpet at the monitor position looking back across the room: the open doorway at the back left with its white-painted door frame, the dark wooden bed frame and one of its legs at frame right with the navy duvet above it. NOAH is on the floor at the doorway, hands on the door frame, the cyan rope around his waist pulling him toward the lens. The take ends in total white.`,
+      `35mm film, fine grain, 84-degree wide lens at 20 centimeters above the carpet, locked off. Lighting lock: the white-cyan light from the lens brightens throughout, ending in total white. Physics lock: he weighs 90 kilos, the carpet resists, the bed is heavy and drags with a scream.`,
+      `low shot at carpet level, real time - his fingers slip off the white frame one by one; he is hauled across the carpet on his stomach toward the lens, trainers dragging; he lunges and locks both hands around the dark wooden bed leg at frame right; the bed lurches 20 centimeters with a long scrape, the duvet slides and a pillow flies; the cyan rope tightens and his knuckles go white; the leg skids, his grip tears free and he is pulled the last meters straight into the lens, which flares to white and takes the whole frame -`,
+      `fingers squeaking off paint, a body dragging across carpet, a bed scraping, wooden joints creaking, a rising surge, his scream cut off dead the instant the frame turns white.`),
+    "Adjunta: E5 y la hoja de Noah. Este plano se genera mejor desde cero con la descripción que editando E5.",
+    `Use image 1 as the room reference and image 2 as the character sheet of NOAH. Create a 16:9 cinematic photograph from 20 centimeters above the carpet, looking back across the room toward the open doorway at the back left: the white door frame, the dark wooden bed frame with one leg at frame right and the navy duvet above it. NOAH lies on his stomach on the carpet near the doorway, both hands on the door frame, his face turned to the camera in fear; white crew-neck t-shirt and light-wash jeans, no jacket; face, hair and build identical to the sheet. Cold blue night light with a hard electric cyan glow from the camera side. No text.`),
+
+  V("V28", "28", 6, false, "Plano 28 · la habitación vacía", "Calma. La silla gira sola y se para; el último resplandor cian se apaga. Negro.",
+    "E5 tal cual: el cuarto vacío con la silla de frente a la cámara.",
+    mk(6, [`No people in frame. Environment only.`],
+      `one continuous take, real time. The bedroom at night seen from the desk side, the same frame as the previous shots, no people. The black leather chair in the right foreground, the navy bed along the back wall under three posters, the open doorway at the back left. The last cyan afterglow dies. The take ends on a cut to black.`,
+      T_NIGHT + ` Locked-off tripod at monitor height, 47-degree natural lens. The last cyan afterglow fades in the first second and leaves only the cold street blue.`,
+      `wide, locked off, real time - the room is still; dust drifts in the dying cyan afterglow; the chair makes a quarter turn on its own and stops; the cyan drains from the carpet and the bed, leaving only the cold blue glow in the window; the take cuts to black on one faint electrical click -`,
+      `a fading electrical hum, a chair swivel with a soft click, dust-quiet room tone, one tiny save-game click, then silence.`),
+    "Adjunta: E5 tal cual como primer fotograma.",
+    ``)
+
+];
+
+Object.assign(CHARS.find(c => c.id === "V20"), {
+  ref: "Adjunta: la imagen del cuarto con la silla de frente (generadas/escenarios/E5_cuarto-contraplano_v4-con-puerta.webp) y la hoja de Noah.",
+  start: `Image 1 is the bedroom at night. Image 2 is the character sheet of NOAH. Edit image 1: add NOAH sitting in the black leather office chair, facing the camera, body square to the lens, upright with his shoulders slightly slumped, tired, his hands resting out of sight below the frame, his eyes looking down at a screen just below the camera, a neutral worn expression. He wears his white crew-neck t-shirt, light-wash jeans and the thin silver chain, with no jacket. Keep his face, hair, build and clothes identical to the sheet. The cold blue-white glow from behind the camera lights his face and chest from below and in front, with a faint amber glow on his jaw. Keep everything else exactly as it is: the bed, the posters, the curtains, the window, the clothes, the gym bag, the carpet and the framing. Do not add or remove any other object. No text.`
+});
+
+Object.assign(CHARS.find(c => c.id === "V21"), {
+  ref: "Adjunta: la ficha sobre negro (O1) y la hoja de Noah.",
+  start: `Image 1 is a small dark pewter metal token with a white enamel diamond and a cyan dot. Image 2 is the character sheet of NOAH. Create a 16:9 close-up photograph of a dark wooden desk at night, the camera at desk level 30 centimeters away: the token from image 1 lies flat at the left edge of the frame, 10 centimeters from a black keyboard; a black gooseneck desk lamp pools warm amber light on the right; the edge of a monitor at the right of the frame lights the wood with a cold blue glow; far in the background, out of focus, NOAH sits at the right with his face turned away toward a window. No text.`
+});
+Object.assign(CHARS.find(c => c.id === "V22"), {
+  ref: "Adjunta: la hoja de Noah. No necesita el cuarto.",
+  start: `Create a 16:9 cinematic close-up photograph of NOAH from the character sheet attached, his face filling the frame 60 centimeters from the camera, lit by an electric cyan glow from out of frame on the left, a faint warm amber rim on his hair, his head turned to the right away from the glow, the dark room behind him falling to black. Keep his face and hair identical to the sheet. Fine film grain, natural skin texture. No text.`
+});
+Object.assign(CHARS.find(c => c.id === "V23"), {
+  ref: "Adjunta: la hoja de Noah. No necesita el cuarto.",
+  start: `Create a 16:9 cinematic medium close-up photograph of NOAH from the character sheet attached, seated and facing the camera 1.2 meters away, white crew-neck t-shirt and the thin silver chain, an electric cyan glow on his face and chest from the camera side, a warm amber desk lamp lit behind him on the right, the rest of the dark room out of focus. Keep his face and hair identical to the sheet. Fine film grain. No text.`
+});
+
+const full = c => c.estilo === "video"
+  ? c.prompt
+  : c.estilo === "escena"
+    ? c.prompt + "\n\nAvoid: " + c.negativo
+    : c.prompt + "\n\n" + STYLE[c.estilo] + "\n\n" + GRID[c.estilo];
+const KEY = "reparto-miniserie-hechas";
+let done = {};
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { done = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} };
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const list = document.getElementById("list");
+const live = document.getElementById("live");
+let filter = "all";
+
+function render(){
+  list.innerHTML = SECS.map(s => {
+    const cs = CHARS.filter(c => c.sec === s.id).filter(c =>
+      filter === "all" || (filter === "todo" ? !done[c.id] : c.sec === filter));
+    if (!cs.length) return "";
+    return `<section class="sec ${s.id}"><div class="sec-h"><div class="sec-k">${esc(s.k)}</div><h2 class="sec-t">${esc(s.t)}</h2><p class="sec-d">${esc(s.d)}</p></div><div class="cards">${cs.map(card).join("")}</div></section>`;
+  }).join("") || `<p class="sec-d" style="padding-block:30px">No queda ninguna hoja por hacer.</p>`;
+  const n = CHARS.filter(c => done[c.id]).length;
+  document.getElementById("pc").textContent = n + " / " + CHARS.length + " hojas";
+  document.getElementById("pm").style.width = (100 * n / CHARS.length) + "%";
+}
+function card(c){
+  const r = c.estilo === "anime" ? "r43" : "r169";
+  return `<article class="card${done[c.id] ? " is-done" : ""}" data-id="${c.id}">
+  <div class="fmt" aria-hidden="true"><i class="${r}"></i><span>${c.estilo === "anime" ? "4:3 · anime" : (c.estilo === "escena" ? "16:9 · lugar" : (c.estilo === "video" ? "16:9 · vídeo" : "16:9 · real"))}</span></div>
+  <div class="top"><span class="num">${c.id}</span><h3 class="name">${esc(c.nombre)}</h3><span class="tag ${c.tagc}">${esc(c.tag)}</span></div>
+  <p class="where">${esc(c.donde)}</p>
+  <p class="rol">${esc(c.rol)}</p>
+  ${c.dir ? `<p class="dir"><b>Dirección:</b> ${esc(c.dir)}</p>` : ""}
+  <p class="line">${c.planos ? `<b>Planos:</b> ${esc(c.planos)}. ` : ""}${c.juego ? `<b>En el juego:</b> ${esc(c.juego)} ` : ""}<b>${esc(c.etFijo || "Rasgo fijo")}:</b> ${esc(c.fijo)}</p>
+  ${c.refin ? `<p class="refin">${esc(c.refin)}</p>` : ""}
+  ${c.ref ? `<p class="ref">${esc(c.ref)}</p>` : ""}
+  <div class="act"><button class="btn" type="button" data-copy="${c.id}">Copiar prompt</button>${c.express ? `<button class="btn alt" type="button" data-short="${c.id}">Copiar versión corta</button>` : ""}${c.start ? `<button class="btn alt" type="button" data-start="${c.id}">${c.estilo === "escena" ? "Copiar versión con imagen de referencia" : "Copiar prompt de la imagen de arranque"}</button>` : ""}
+  <label class="done"><input type="checkbox" id="done-${c.id}" data-done="${c.id}"${done[c.id] ? " checked" : ""}> hoja hecha</label></div>
+  <details><summary>Ver el prompt completo</summary>${c.brief ? `<div class="brief">${esc(c.brief)}</div>` : ""}${c.start ? `<div class="brief">${esc((c.estilo === "escena" ? "Versión con imagen de referencia:" : "Imagen de arranque:") + "\n" + c.start)}</div>` : ""}<pre id="pre-${c.id}">${esc(full(c))}</pre></details>
+</article>`;
+}
+
+list.addEventListener("click", e => {
+  const b = e.target.closest("[data-copy],[data-short],[data-start]");
+  if (!b) return;
+  const kind = b.hasAttribute("data-short") ? "short" : (b.hasAttribute("data-start") ? "start" : "full");
+  const c = CHARS.find(x => x.id === (b.dataset.copy || b.dataset.short || b.dataset.start));
+  const label = kind === "short" ? "Copiar versión corta" : (kind === "start" ? (c.estilo === "escena" ? "Copiar versión con imagen de referencia" : "Copiar prompt de la imagen de arranque") : "Copiar prompt");
+  const txt = kind === "short" ? c.express : (kind === "start" ? c.start : full(c));
+  const ok = () => { b.textContent = "Copiado"; b.classList.add("ok"); live.textContent = "Prompt de " + c.nombre + " copiado";
+    setTimeout(() => { b.textContent = label; b.classList.remove("ok"); }, 1600); };
+  const fallback = () => {
+    const d = b.closest(".card").querySelector("details"); d.open = true;
+    const r = document.createRange(); r.selectNodeContents(d.querySelector("pre"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    b.textContent = "Seleccionado: pulsa Ctrl+C"; live.textContent = "No se pudo copiar; el texto está seleccionado";
+  };
+  try { navigator.clipboard.writeText(txt).then(ok, fallback); } catch (err) { fallback(); }
+});
+list.addEventListener("change", e => {
+  const i = e.target.closest("[data-done]");
+  if (!i) return;
+  done[i.dataset.done] = i.checked; save(); render();
+});
+document.querySelector(".chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  filter = b.dataset.f;
+  document.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render();
+});
+document.getElementById("b-real").textContent = STYLE.real;
+document.getElementById("b-grid").textContent = GRID.real;
+document.getElementById("b-anime").textContent = STYLE.anime;
+document.getElementById("b-grid2").textContent = GRID.anime;
+render();
+</script>

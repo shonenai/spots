@@ -10,3 +10,9 @@
 Thumbs.db
 desktop.ini
 __pycache__/
+
+# No subir a la nube (2026-10-08)
+briefs/MONSTER/breaking-bad/musica/
+briefs/MONSTER/breaking-bad/refs/Referencias/
+briefs/NIKE/outfits/ella-looks/outifts-ref/
+*.bak*
